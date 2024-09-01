@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)">MangaSt</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <!--mx-lg-0 растояние между иконками-->
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/manga">
+            <!--<i class="fas fa-caret-down"></i>&nbsp;Home-->
+            <i class="fas fa-home-alt"></i>&nbsp;Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="manga-catalog">
+            <i class="fas fa-book-open"></i>&nbsp;Catalog
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="manga-about">
+            <i class="fas fa-book"></i>&nbsp;About
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="manga-faq">
+            <i class="fas fa-question-circle"></i>&nbsp;F.A.Q/Help
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link text-danger" aria-current="page" routerLink="admin-panel">
+            <i class="fas fa-address-book"></i>&nbsp;Admin-Panel
+            <!--<i class="fas fa-address-card"></i>&nbsp;Account-->
+          </a>
+        </li>
+      </ul>
+      <!-- Search -->
+      <form class="d-flex gap-2 align-items-center" role="search">
+        <a *ngIf="isAuthenticated" class="btn-outline-info"><i class="fas fa-message"></i></a>
+        <input [(ngModel)]="searchPrm" class="form-control" type="text" name="search" placeholder="Find a manga" aria-label="Search">
+        <button (click)="toSearch()" class="btn btn-outline-success me-5" type="submit"><i class="fas fa-search"></i></button>
+        <div *ngIf="isAuthenticated" class="d-flex gap-2 align-items-center">
+          <button class="account_btn btn"><span class="text-capitalize fw-bold" (click)="toAccount()">Account</span></button>
+          <!--<a class="account text-capitalize fw-bold" href="/account">Account</a>-->
+          <button class="btn_logout btn btn-link" type="button" (click)="logout()"><i class="fas fa-door-open"></i></button>
+        </div>
+        <div *ngIf="!isAuthenticated" class="d-flex gap-2 align-items-center">
+          <!--<span class="text-capitalize fw-bold" href="/login">Guest</span>-->
+          <button class="log_reg_btn btn"><i class="text-capitalize fw-bold" (click)="toLogin()">Sign&nbsp;in/Sign&nbsp;up</i></button>
+          <!--<button class="btn_login btn btn-link" type="button" (click)="toLogin()"><i class="fas fa-registered"></i></button>-->
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</nav>

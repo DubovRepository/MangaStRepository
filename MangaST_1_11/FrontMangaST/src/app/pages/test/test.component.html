@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width,
+    initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <title>Responsive Navbar</title>
+</head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="logo"><a href="/main">MangaSt</a></div>
+        <ul class="links">
+          <li><a href="catalog">Catalog</a></li>
+          <li><a href="search">Search</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="faq">F.A.Q</a></li>
+        </ul>
+        <a href="/login" class="action_btn">Login/Registration</a>
+        <div class="toggle_btn">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </div>
+
+
+    </header>
+
+
+    <div class="wrapper-errors">
+      <p *ngFor="let msg of errorMsg" style="color: #ffffff">{{msg}}</p>
+    </div>
+
+    <!-- -->
+    <div class="wrapper">
+      <!--<form (ngSubmit)="login()">-->
+      <form (ngSubmit)="login()">
+        <h1>Login</h1>
+        <div class="input-box-login">
+          <input [(ngModel)]="authRequest.email" type="email" placeholder="Email" name="login" id="login">
+          <i class="bx bxs-user"></i>
+        </div>
+        <div class="input-box-login">
+          <input [(ngModel)]="authRequest.password" type="password" placeholder="Password" name="password" id="password">
+          <i class="bx bxs-lock-open-alt"></i>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" name="remember" [(ngModel)]="isRemember"> Remember me</label>
+          <a href="/forgotPassword">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+
+        <div class="register-link">
+          <p>Don`t have an account? <a href="/register">Register</a></p>
+        </div>
+      </form>
+    </div>
+
+  </body>
+</html>

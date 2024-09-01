@@ -1,0 +1,42 @@
+### Register user
+POST http://localhost:8082/mangaSt/auth/register
+Content-Type: application/json
+
+{
+  "email": "bessonnya.youknow@gmail.com",
+  "password": "123",
+  "nickname": "testik"
+}
+
+> {% client.global.set("auth-token", response.body.access_token); %}
+
+### Authorization
+POST http://localhost:8082/mangaSt/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "bessonnya.youknow@gmail.com",
+  "password": "123"
+}
+
+> {% client.global.set("new-auth-token", response.body.access_token); %}
+
+
+
+### Send message
+POST http://localhost:8082/mangaSt/confirm/sendMessage
+Content-Type: application/json
+Authorization: Bearer {{new-auth-token}}
+
+
+
+####Add new book
+#POST http://localhost:8082/test/production/addProd
+#Content-Type: application/json
+#
+#{
+#  "title": "War and peace",
+#  "author": "Lev Tolstoy",
+#  "typeBook": "Book",
+#  "categories": ["Crime","Drama","Romance"]
+#}

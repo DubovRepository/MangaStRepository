@@ -1,0 +1,31 @@
+.manga_body a {
+  text-decoration: none;
+  //background-color: #d6e5f1;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: black;
+  border: 2px solid rgba(255,255,255, .2);
+}
+
+.manga_body li {
+  position: relative;
+  list-style: none;
+  text-align: center;
+}
+
+.manga-link.active {
+  color: #000000;
+  border-radius: 5px;
+  background-color: #cccccc;
+}
+
+.manga-link:hover {
+  background-color: #d6e5f1;
+  border-radius: 5px;
+  text-decoration: underline;
+}
+
+.manga_body a:hover {
+  color: red;
+}

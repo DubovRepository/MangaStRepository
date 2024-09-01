@@ -1,0 +1,82 @@
+<div *ngIf="!pageError" class="d-flex justify-content-start mt-3">
+  <div class="col-2">
+    <img [src]="mangaPageCover" alt="..." height="350" width="300" >
+    <div *ngIf="!isAdd">
+      <div *ngIf="isAuthorization" class="my-2 mx-2">
+        <button *ngIf="!_manga.achieved" type="button" class="btn btn-outline-primary" (click)="addToAchieved()"><i class="fas fa-save"> Добавить в избранное</i></button>
+        <button *ngIf="_manga.achieved" type="button" class="btn btn-outline-danger" (click)="deleteFromAchieved()"><i class="fas fa-times"> Удалить из избранного</i></button>
+        <button type="submit" class="btn btn-outline-primary my-2" (click)="addChapter()"><i class="fas fa-circle-plus"> Добавить главу</i></button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div *ngIf="!isAdd" class="body-manga d-flex col-10">
+    <div class="manga_body justify-content-center mt-1">
+    <h1 class="mx-4">{{_manga.title}}</h1>
+      <ul class="me-auto mb-2 mb-lg-0 d-flex">
+        <li class="manga-item">
+          <a class="manga-link" href="/manga/mangaPage/{{this.pageId}}?section=info">Описание</a>
+        </li>
+        <li class="manga-item mx-lg-4">
+          <!--<a class="manga-link active" href="/manga/mangaPage/{{this.pageId}}?section=chapters">Главы:</a>-->
+          <a class="manga-link" href="/manga/mangaPage/{{this.pageId}}?section=chapters">Главы:</a>
+        </li>
+
+      </ul>
+      <div *ngIf="!isChapters" class="container-description">
+        <p>{{this._manga.description}}</p>
+      </div>
+      <div *ngIf="isChapters" class="container-chapters d-flex justify-content-start gap-2 flex-wrap">
+        <app-chapter-card [chapter]="chapter"
+                          *ngFor="let chapter of _chaptersByManga"></app-chapter-card>
+      </div>
+      <p *ngIf="pageError.length > 0">{{pageError}}</p>
+      <p *ngIf="chaptersError.length > 0">{{chaptersError}}</p>
+    </div>
+
+  <!--
+  <div class="test-add">
+    <button type="button" (click)="toAdd()">Добавить главу</button>
+  </div> -->
+  </div>
+
+
+  <!-- ========================================================== -->
+  <div *ngIf="isAdd" class="add chapter mx-4 col-10">
+    <h1>{{_manga.title}}</h1>
+
+      <form class="row g-3 d-flex">
+        <div class="col-4">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" id="title" [(ngModel)]="chapterRequest.chapterTitle" type="text" class="form-control" placeholder="Title">
+        </div>
+        <div class="col-4">
+          <label for="chapterNumber" class="form-label">Number</label>
+          <input name="chapterNumber" id="chapterNumber" [(ngModel)]="chapterRequest.numberChapter" type="text" class="form-control" placeholder="Chapter number">
+        </div>
+        <div class="col-8">
+          <label for="fileLoader" class="form-label">Pdf file:</label>
+          <input name="fileLoader" id="fileLoader" (change)="onSelectedPdfFile($event)" type="file" accept="application/pdf" class="form-control">
+        </div>
+      </form>
+    <div class="my-3">
+      <button type="submit" class="btn btn-outline-primary" (click)="addChapterRequest()"><i class="fas fa-save"> Add chapter</i></button>
+      <a routerLink="/mangaPage/{{_manga.mangaPageId}}" type="submit" class="btn btn-link btn text-danger">
+        <i class="fas fa-times"></i> Cancel
+      </a>
+      <p *ngIf="errorMsg.length > 0">{{errorMsg}}</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Error, found page -->
+<div *ngIf="pageError">SORRY, BUT NOTHING NOT FOUND! PAGE NOT EXISTS!</div>
+
+
+
+
+

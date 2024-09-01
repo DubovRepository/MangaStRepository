@@ -1,0 +1,94 @@
+<h3 class="d-flex mx-lg-2">{{userInfo.nickname}}, welcome to your account</h3>
+<br>
+<div class="container-fluid d-flex">
+  <div class="col-3 ">
+    <img [src]="userCover" alt="..." height="400" width="400">
+    <div class="mt-2">
+      <input type="file" style="width: 400px" class="form-control" (change)="changeAccountPicture($event)"
+      id="formFile"
+      accept="image/*"
+      >
+    </div>
+    <br>
+    <span>Nickname: {{userInfo.nickname}}</span><br>
+    <span>Email: {{securityEmail}}</span>
+    <button class="btn mx-lg-auto my-1 d-flex" type="button">Изменить email</button>
+    <button class="btn mx-lg-auto my-1 d-flex" type="button">Изменить пароль</button>
+  </div>
+  <div class="justify-content-center">
+    <span *ngIf="message.length > 0">{{message}}</span>
+  <h3 class="d-flex mx-lg-5">Избранное:</h3>
+    <div class="d-flex justify-content-center mx-lg-auto flex-wrap my-3 gap-2">
+
+      <!-- justify-content-start где распологается все (текст, компоненты) ниже линии, например с начала страницы, или по середине-->
+      <app-manga-card [manga]="manga" *ngFor="let manga of pageResponse.listManga"
+                      [manage]="true"
+                      (delete)="deleteMangaFromFavorite($event)"
+                      (info)="toCheckManga($event)"
+      ></app-manga-card>
+                      <!--(edit)="loadEditManga($event)"-->
+      <div class="pages d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a
+                (click)="gotToFirstPage()"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Previous"
+                [class.disabled]="page == 0" >
+                <i class="fa-solid fa-angles-left"></i>
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                (click)="gotToPreviousPage()"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Previous"
+                [class.disabled]="page == 0">
+                <i class="fa-solid fa-angle-left"></i>
+              </a>
+            </li>
+            <li class="page-item"
+                *ngFor="let _ of [].constructor(this.pageResponse.totalPages); let pageIndex = index">
+              <a
+                (click)="gotToPage(pageIndex)"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Previous"
+                [class.active]="page == pageIndex"
+              >
+                {{ pageIndex + 1 }}
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                (click)="gotToNextPage()"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Next"
+                [class.disabled]="isLastPage">
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
+            <li class="page-item">
+              <a
+                (click)="gotToLastPage()"
+                class="page-link"
+                href="javascript:void(0)"
+                aria-label="Next"
+                [class.disabled]="isLastPage">
+                <i class="fa-solid fa-angles-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+

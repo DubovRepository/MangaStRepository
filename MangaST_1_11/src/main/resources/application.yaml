@@ -1,0 +1,67 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /mangaSt
+
+springdoc:
+  default-produces-media-type: application/json
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/NewOurProject
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      enabled: true
+      file-size-threshold: 2KB
+      max-request-size: 50MB
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: johnbarry3822@gmail.com
+    password: nkawtjdexzgblatu
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # a day
+      long-expiration: 604800000 # 7 days
+      refresh-token:
+        expiration: 604800000 # 7 days
+  pathway: E:/manga/
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+  file:
+    uploads:
+      manga-output-path: ./uploads
+
+
+
+

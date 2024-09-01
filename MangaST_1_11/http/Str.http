@@ -1,0 +1,11 @@
+### Register user
+POST http://localhost:8082/mangaSt/auth/register
+Content-Type: application/json
+
+{
+  "email": "johnbarry3822@gmail.com",
+  "password": "123",
+  "nickname": "testik"
+}
+
+> {% client.global.set("auth-token", response.body.access_token); %}

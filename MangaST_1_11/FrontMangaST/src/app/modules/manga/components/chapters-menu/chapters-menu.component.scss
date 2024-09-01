@@ -1,0 +1,102 @@
+
+nav {
+  background-color: #7a88ff;
+  //background-color: #727ff2;
+  //background-color: #7064bd;
+}
+
+.manga-title {
+  cursor: pointer;
+  position: absolute;
+
+}
+.manga-title a {
+  color: white;
+  text-underline: none;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+.manga-title a:hover {
+  color: #bddbbe;
+  //color: #c0b9eb;
+}
+
+.selectlink {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+  margin: 10px;
+  left: 43%;
+}
+.selectlink-control {
+  position: relative;
+  padding: 10px 15px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+.selectlink-control:after {
+  content: '';
+  border: 5px solid transparent;
+  border-top: 5px solid #999;
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  margin-top: -3px;
+}
+.selectlink ul {
+  display: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  border: 1px solid #dadada;
+  border-top: none;
+  background: #fff;
+  z-index: 9999;
+  overflow: auto;
+  user-select: none;
+}
+.selectlink li {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+
+.selectlink li a {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 4px 6px 4px 15px;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1.1;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+.selectlink li a:hover {
+  background: #03a2ff;
+  color: #fff;
+}
+
+.selectlink li a.active {
+  background: #03a2ff;
+  color: #fff;
+}
+
+/*
+@media screen and (max-width: 700px) {
+  .body_pointer {
+    cursor: pointer;
+  }
+}
+ */

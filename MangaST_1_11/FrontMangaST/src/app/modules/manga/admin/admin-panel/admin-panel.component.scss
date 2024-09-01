@@ -1,0 +1,39 @@
+.pages {
+  position: absolute;
+  top: 92%;
+  right: 47.5%;
+}
+
+
+.adm_btn_add {
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #949082;
+  height: 50px;
+  width: 150px;
+  margin: auto;
+
+}
+
+.adm_btn_add:hover {
+  background-color: #555555;
+}
+
+.list-manga-requests {
+  position: absolute;
+  top: 18%;
+  right: 10%;
+  min-height: 600px;
+  min-width: 900px;
+  border: 7px solid #6b6260;
+  background-color: #c7b7b3;
+  //background-color: white;
+  //background: transparent;
+  //border: 2px solid rgba(255,255,255, .2);
+  //backdrop-filter: blur(20px);
+  color: #fff;
+  //box-shadow: 0 0 20px rgba(0,0,0, .5);
+  border-radius: 10px;
+  padding: 30px 40px;
+
+}

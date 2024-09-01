@@ -1,0 +1,49 @@
+li > a {
+  &:hover {
+    background-color: #d6e5f1;
+    border-radius: 5px;
+    text-decoration: underline;
+  }
+  &.active {
+    color: #24a7e9;
+    border-radius: 5px;
+  }
+}
+
+.account {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.account_btn {
+  cursor: pointer;
+
+}
+
+.account_btn:hover {
+  background-color: #949082;
+}
+
+.btn_logout {
+  cursor: pointer;
+}
+
+.btn_logout:hover {
+  background-color: #949082;
+}
+
+.btn_login {
+  cursor: pointer;
+}
+
+.btn_login:hover {
+  background-color: #949082;
+}
+
+.log_reg_btn {
+  cursor: pointer;
+}
+
+.log_reg_btn:hover {
+  background-color: #949082;
+}

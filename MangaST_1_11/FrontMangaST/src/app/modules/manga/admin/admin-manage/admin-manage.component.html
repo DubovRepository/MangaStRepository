@@ -1,0 +1,76 @@
+<div class="p-2">
+  <h2>Manage manga</h2>
+  <hr>
+  <!--<div class="alert alert-danger mt-2" role="alert" *ngIf="errMsg.length > 0">
+    <p class="p-0 m-0" *ngFor="let msg of errMsg">{{msg}}</p>
+  </div> -->
+  <div class="d-flex gap-2">
+    <div class="col-3">
+      <img class="rounded-1" width="100%" height="100%" [src]="selectedPicture || 'https://metallps.ru/assets/cache_image/empty_720x540_e0a.png'" alt="...">
+      <div class="mt-2">
+        <input
+          (change)="onFileSelected($event)"
+          class="form-control"
+          type="file"
+          id="formFile"
+          accept="image/*"
+        >
+      </div>
+    </div>
+    <div class="col-9">
+      <form class="row g-3">
+        <div class="col-6">
+          <!-- col - длина чего-либо их максимальная сумма 12! Страница делится на 12 частей -->
+          <label for="title" class="form-label">Title</label>
+          <input name="title" id="title" [(ngModel)]="mangaRequest.title" type="text" class="form-control" placeholder="Manga title">
+        </div>
+        <div class="col-6">
+          <label for="authorName" class="form-label">Author</label>
+          <input name="authorName" id="authorName" [(ngModel)]="mangaRequest.authorName" type="text" class="form-control" placeholder="Author">
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea rows="3" id="description" style="resize: none; scrollbar-width: none"  name="description" [(ngModel)]="mangaRequest.description" type="text" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <div class="col-6">
+          <label for="typeManga" class="form-label">Type manga</label>
+          <select name="typeManga" id="typeManga" class="col-12" [(ngModel)]="mangaRequest.typeManga">
+            <option class="type" *ngFor="let type of listTypesManga">{{type}}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="statusManga" class="form-label">Status manga</label>
+          <select name="statusManga" id="statusManga" class="col-12" [(ngModel)]="mangaRequest.status" >
+            <option class="status" *ngFor="let status of testList">{{status}}</option>
+          </select>
+        </div>
+        <div class="manga_categories col-6 gap-1 d-flex">
+          <button name="cat_btn" *ngFor="let category of listOfAllCategories" class="{{category.category}}_btn" (click)="clickToButton(category)">{{category.category}}</button>
+        </div>
+        <div class="btns uploads">
+          <button type="submit" class="btn btn-outline-primary" *ngIf="isEdit" (click)="updateManga()"><i class="fas fa-edit"> Update</i></button>
+          <button type="submit" class="btn btn-outline-primary" *ngIf="!isEdit" (click)="createManga()"><i class="fas fa-save"> Save</i></button>
+          <a routerLink="/admin-panel" type="submit" class="btn btn-link btn text-danger">
+            <i class="fas fa-times"></i> Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div>
+  <br>
+  <br>
+  <hr>
+  <h3>Selected categories:</h3>
+  <span  *ngFor="let categ of mangaRequest.mangaCategories">{{categ.category}}</span>
+  <br>
+  <br>
+  <h3>List status:</h3>
+  <span *ngFor="let status of listStatus">{{status}} </span>
+  <br>
+  <hr>
+  <p *ngFor="let err of errMsg">{{err}}</p>
+</div>

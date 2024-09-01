@@ -1,0 +1,15 @@
+### Authorization
+POST http://localhost:8082/mangaSt/auth/authenticate
+Content-Type: application/json
+
+{
+  "email": "Bessonnya.youknow@gmail.com",
+  "password": "123"
+}
+
+> {% client.global.set("new-auth-token", response.body.access_token); %}
+
+
+### Send message
+POST http://localhost:8082/mangaSt/confirm/sendMessage
+Authorization: Bearer {{new-auth-token}}

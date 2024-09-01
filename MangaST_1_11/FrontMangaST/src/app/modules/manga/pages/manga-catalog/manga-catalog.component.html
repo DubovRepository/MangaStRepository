@@ -1,0 +1,18 @@
+<h3>Books list</h3>
+<hr> <!-- Линия разграничивающая заголовок и список-->
+<div class="d-flex justify-content-start gap-2 flex-wrap">
+  <!-- justify-content-start где распологается все (текст, компоненты) ниже линии, например с начала страницы, или по середине-->
+  <p *ngFor="let category of allCategories">{{category}}</p>
+  <app-manga-card [manga]="mang" *ngFor="let mang of mangaResponse.listManga"></app-manga-card>
+  <p *ngIf="isError">{{errorMsg}}</p>
+
+  <!-- ======================= -->
+  <hr>
+  <div class="categories-contrainer">
+    <label *ngFor="let cat of categoriesList"><input type="checkbox" name="category" (click)=checkCategory(this.firstTest)>{{cat}}</label>
+    <label *ngFor="let cat of categoriesList"><input type="checkbox" name="category" (click)=checkCategory(this.secondTest)>{{cat}}</label>
+  </div>
+
+  <!-- ======================= -->
+
+</div>

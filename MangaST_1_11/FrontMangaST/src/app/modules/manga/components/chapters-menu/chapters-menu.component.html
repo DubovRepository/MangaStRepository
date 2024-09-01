@@ -1,0 +1,33 @@
+
+<nav class="navbar navbar-expand-lg">
+
+  <div class="container-fluid">
+    <!--<select name="chapterList" id="chapterList"
+            [(ngModel)]="this.currentChapter">
+      <option *ngFor="let chap of listChaptersByManga" value="{{chap.number}}}"
+              class="chap_{{chap.number}}" (change)="toChange(chap.number)">{{chap.number}}</option>
+    </select>-->
+
+
+    <div class="manga-title">
+      <a href="/mangaPage/{{manga.mangaPageId}}">{{manga.title}}</a>
+    </div>
+
+    <div class="selectlink">
+      <!--<div>
+        <a href="/mangaPage/{{mangaPageId}}/v1/{{listChaptersByManga[index + 1].number}}" [class.disabled]="index == listChaptersByManga.length - 1">Далее</a>
+      </div>-->
+      <div class="selectlink-control" (click)="testMethod()">Глава: {{currentChapter.number}}</div>
+      <ul id="selectlink_ul">
+        <li *ngFor="let chap of listChaptersByManga">
+          <a class="link-number-{{chap.number}}" href="/mangaPage/{{this.mangaPageId}}/v1/{{chap.number}}">{{chap.number}}</a></li>
+      </ul>
+      <!--<div>
+        <a href="javascript:void(0)" [class.disabled]="index == 0" (click)="previousChapter()">Назад</a>
+        <a href="/mangaPage/{{mangaPageId}}/v1/{{listChaptersByManga[index - 1].number}}" [class.disabled]="index == 0">Назад</a>
+      </div>-->
+    </div>
+
+  </div>
+</nav>
+

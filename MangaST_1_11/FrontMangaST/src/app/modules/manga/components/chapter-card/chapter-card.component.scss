@@ -1,0 +1,17 @@
+.chap-container {
+  width: 500px;
+  border-radius: 15px;
+  padding: 7px;
+  border: 1px solid #ccc;
+  color: black;
+  margin: 5px;
+  background-color: #cccccc;
+  cursor: pointer;
+}
+
+.chap-container:hover {
+  color: orange;
+  background-color: #555555;
+}
+
+

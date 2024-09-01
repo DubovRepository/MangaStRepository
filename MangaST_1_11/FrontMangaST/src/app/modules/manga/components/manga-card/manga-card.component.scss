@@ -1,0 +1,14 @@
+div {
+  &.card {
+    max-height: 350px;
+    min-height: 350px;
+  }
+}
+
+.card-body {
+  scrollbar-width: none;
+}
+
+i {
+  cursor: pointer;
+}

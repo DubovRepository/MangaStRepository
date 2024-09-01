@@ -1,0 +1,39 @@
+<div
+class="card mx-lg-0"
+style="width: 15rem;"> <!--mx-lg-0 расстояние между карточками-->
+  <a *ngIf="list_manga" href="/manga/mangaPage/{{manga.mangaPageId}}"><img height="200" [src]="mangaCover" class="card-img-top" alt="..."></a>
+  <a *ngIf="manage" href="/manga/mangaPage/{{manga.mangaPageId}}"><img height="200" [src]="mangaCover" class="card-img-top" alt="..."></a>
+  <a *ngIf="check_manage" href="/manga/admin-panel/check-requests/{{manga.mangaPageId}}"><img height="200" [src]="mangaCover" class="card-img-top" alt="..."></a>
+  <a *ngIf="adm_manage" href="/manga/admin-panel/manage/{{manga.mangaPageId}}"><img height="200" [src]="mangaCover" class="card-img-top" alt="..."></a>
+  <div class="card-body overflow-scroll"> <!--overflow-scroll для прокрутки описания в карточке-->
+    <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-book"></i>&nbsp;{{manga.title}}</h5>
+    <h6 class="card-subtitle fs-6 text-secondary mb-1"><i class="fa-solid fa-user-check"></i>&nbsp;{{manga.authorName}}</h6>
+    <hr>
+    <p class="card-text">{{manga.description}}</p>
+  </div>
+  <div class="card-footer d-flex gap-2 justify-content-between align-items-center">
+    <div class="d-flex gap-2">
+      5 stars
+    </div>
+    <div *ngIf="list_manga" class="d-flex gap-2">
+      <i (click)="onInfo()" class="fas fa-circle-info text-primary"></i>
+    </div>
+    <div *ngIf="manage" class="d-flex gap-2">
+      <i (click)="onInfo()" class="fas fa-circle-info text-primary"></i>
+      <i (click)="onDelete()" class="fas fa-archive text-danger"></i>
+    </div>
+    <div *ngIf="check_manage" class="d-flex gap-2">
+      <i (click)="onShowDetails()" class="fas fa-list-check text-primary"></i>
+      <i (click)="onInfo()" class="fas fa-circle-info text-primary"></i>
+      <!--<i *ngIf="manga.achieved" class="fas fa-heart text-danger"></i>
+      <i *ngIf="!manga.achieved" class="fas fa-heart-broken text-danger"></i>-->
+    </div>
+    <div *ngIf="adm_manage" class="d-flex gap-2">
+      <i (click)="onInfo()" class="fas fa-circle-info text-primary"></i>
+      <i (click)="onEdit()" class="fas fa-edit text-primary"></i>
+      <i (click)="onDelete()" class="fas fa-archive text-danger"></i>
+    </div>
+
+
+  </div>
+</div>

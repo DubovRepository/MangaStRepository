@@ -1,0 +1,22 @@
+
+.manga_categories button {
+  color: #000000;
+  background-color: #cccccc;
+  border-radius: 10px;
+}
+
+.manga_categories button.active {
+  color: #d6e5f1;
+  background-color: #000000;
+}
+
+select {
+  border-radius: 5px;
+  height: 35px;
+}
+
+.description-manga {
+  resize: none;
+}
+
+

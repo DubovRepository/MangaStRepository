@@ -1,0 +1,38 @@
+<div *ngIf="!pageError" class="d-flex justify-content-start mt-3">
+  <div>
+    <img [src]="mangaPageCover" alt="..." height="350" width="300" >
+    <h3 class="mx-2">Название: {{_manga.title}}</h3>
+    <a routerLink="/admin-panel/check-requests" class="btn btn-link btn text-danger" type="submit">
+      <i class="fas fa-arrow-rotate-back"> Back</i>
+    </a>
+  </div>
+  <div class="manga_body justify-content-center mt-1">
+
+    <div class="container-description">
+      <h3 class="mx-4">Описание:</h3>
+      <p class="mx-4">{{this._manga.description}}</p>
+    </div>
+    <div>
+      <h3 class="mx-2">Непроверенные главы: (запросы)</h3>
+      <!--<div class="container-chapters mx-2 d-flex justify-content-start gap-2 flex-wrap">-->
+      <div class="container-chapters mx-2 justify-content-start gap-2 flex-wrap">
+        <app-chapter-card [chapter]="chapter"
+                          [manage]="true"
+                          *ngFor="let chapter of _chaptersByManga"></app-chapter-card>
+      </div>
+    </div>
+    <!--<p *ngIf="isChapters">{{errorMsg}}</p>-->
+    <p *ngIf="pageError.length > 0">{{pageError}}</p>
+    <p *ngIf="chaptersError.length > 0">{{chaptersError}}</p>
+  </div>
+
+
+</div>
+
+<!-- Error, found page -->
+<div *ngIf="pageError">SORRY, BUT NOTHING NOT FOUND! PAGE NOT EXISTS!</div>
+
+
+
+
+

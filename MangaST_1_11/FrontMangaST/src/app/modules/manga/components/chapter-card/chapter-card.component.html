@@ -1,0 +1,9 @@
+<div *ngIf="!manage" class="chap-container">
+  <a href="/mangaPage/{{mangaPageId}}/v1/{{chapterNumber}}">Номер # {{chapterId}}</a>
+  <a href="/mangaPage/{{mangaPageId}}/v1/{{chapterNumber}}">Глава #{{chapterTitle}}</a>
+</div>
+
+<div *ngIf="manage">
+  <a href="admin-panel/check-requests/{{mangaPageId}}/{{chapterId}}">Id: {{chapterId}}</a>
+  <a href="admin-panel/check-requests/{{mangaPageId}}/{{chapterId}}">Глава #{{chapterTitle}}</a>
+</div>
