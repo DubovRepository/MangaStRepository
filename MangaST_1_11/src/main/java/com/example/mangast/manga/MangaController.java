@@ -25,7 +25,7 @@ public class MangaController {
         return ResponseEntity.ok(service.loadAllCategories());
     }
 
-    //Find manga by page id
+    //Поиск манги по mangaPageId
     @GetMapping("/find/{mangaPageId}")
     public ResponseEntity<MangaResponse> findMangaByPageId(@PathVariable String mangaPageId, Authentication connectedUser) {
         return ResponseEntity.ok(service.findByPageId(mangaPageId, connectedUser));
@@ -72,7 +72,7 @@ public class MangaController {
 
 
 
-    //add manga to favorite list
+    //Добавляем мангу в favorite list
     @PostMapping("/addToFavorite/{manga-id}")
     public void addToFavorite(
             @PathVariable("manga-id") Integer mangaId,
@@ -82,7 +82,7 @@ public class MangaController {
     }
 
 
-    //delete manga to favorite list
+    //Удаление манги из favorite list
     @DeleteMapping("/deleteFromFavorite/{manga-id}")
     public void deleteFromFavorite(
             @PathVariable("manga-id") Integer mangaId,
