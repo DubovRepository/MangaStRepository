@@ -1,6 +1,5 @@
 package com.example.mangast.manga;
 
-import com.example.mangast.manga.categories.Category;
 import com.example.mangast.manga.categories.MangaCategories;
 import com.example.mangast.page.PageResponse;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,7 @@
 package com.example.mangast.manga;
 
-import com.example.mangast.file.FileStorage;
 import com.example.mangast.file.FileUtils;
-import com.example.mangast.manga.categories.CategoriesRepository;
-import com.example.mangast.manga.categories.Category;
 import com.example.mangast.manga.categories.MangaCategories;
-import com.example.mangast.mapper.MangaMapper;
 import com.example.mangast.page.PageResponse;
 import com.example.mangast.user.User;
 import com.example.mangast.user.UserRepository;
@@ -15,11 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,17 +98,14 @@ public class MangaService {
     public void deleteFromFavoriteByMangaId(Integer mangaId, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
         List<Manga> favoriteList = user.getFavoriteList();
-        favoriteList.removeIf((manga) -> {
-            return manga.getId().equals(mangaId);
-        });
+        favoriteList.removeIf((manga) -> manga.getId().equals(mangaId));
         user.setFavoriteList(favoriteList);
         userRepository.save(user);
     }
 
     //Под удаление
     public List<MangaCategories> loadAllCategories() {
-        List<MangaCategories> list = Arrays.stream(MangaCategories.values()).toList();
-        return list;
+        return Arrays.stream(MangaCategories.values()).toList();
     }
 
 
@@ -123,7 +113,7 @@ public class MangaService {
 
     public MangaResponse findByPageId(String mangaPageId, Authentication connectedUser) {
         var manga = repository.findByMangaPageId(mangaPageId).orElseThrow(() -> new RuntimeException("Manga with this pageId not exist!"));
-        if(manga.isVerified() == false) {
+        if(!manga.isVerified()) {
             throw new RuntimeException("Manga is not verified yet!");
         }
         var tmpAchieve = false;

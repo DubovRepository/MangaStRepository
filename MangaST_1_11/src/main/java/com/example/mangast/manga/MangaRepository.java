@@ -1,7 +1,6 @@
 package com.example.mangast.manga;
 
 import com.example.mangast.manga.categories.Category;
-import com.example.mangast.manga.categories.MangaCategories;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,14 +21,6 @@ public interface MangaRepository extends JpaRepository<Manga, Integer>, JpaSpeci
     Page<Manga> findAllAvailableManga(Pageable pageable);
 
 
-
-//    @Query("""
-//    SELECT manga FROM Manga manga
-//    WHERE manga.categories = ALL(:listCategories)
-//    """)
-    //Page<Manga> findAllByCategoriesIn(Set<MangaCategories> setCategories, Pageable pageable);
-    //Page<Manga> findAllByCategoriesExists(Set<MangaCategories> setCategories, Pageable pageable);
-
     @Query("""
     SELECT manga FROM Manga manga 
     WHERE manga.verified = true 
@@ -37,7 +28,6 @@ public interface MangaRepository extends JpaRepository<Manga, Integer>, JpaSpeci
     """)
     Page<Manga> findAllByTitleContaining(String title, Pageable pageable);
 
-    //Page<Manga> findAllByCategoriesContains(MangaCategories category, Pageable pageable);
 
     Optional<Manga> findByMangaPageId(String pageId);
 
@@ -48,6 +38,4 @@ public interface MangaRepository extends JpaRepository<Manga, Integer>, JpaSpeci
     List<Category> findAllCategoriesByMangaId(Integer mangaId);
 
 
-
-    //Page<Manga> findByCategoriesContainsIgnoreCase(List<MangaCategories> listCategories, Pageable pageable);
 }
