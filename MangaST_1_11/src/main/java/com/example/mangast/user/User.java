@@ -39,8 +39,6 @@ public class User implements UserDetails, Principal {
     @Column(unique = true)
     private String userPageId;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Token> tokens;
     private boolean isBanned;
     private boolean isActivated;
     private String firstname;
@@ -49,8 +47,6 @@ public class User implements UserDetails, Principal {
     private LocalDate birthday;
     private String userCover;
 
-
-    //private List<LiteraryProduction> favoriteList;
     @OneToMany(fetch = FetchType.EAGER)
     private List<Manga> favoriteList;
 

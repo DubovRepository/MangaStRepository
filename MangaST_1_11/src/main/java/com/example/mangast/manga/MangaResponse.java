@@ -1,9 +1,7 @@
 package com.example.mangast.manga;
 
-import com.example.mangast.manga.categories.MangaCategories;
 import lombok.*;
 
-import java.util.Set;
 
 @Getter
 @Setter
@@ -26,13 +24,10 @@ public class MangaResponse {
 
     private String pathTitle;
 
-    //@Enumerated(EnumType.STRING)
     private TypeManga typeManga;
 
     private MangaStatus status;
 
-    //@Enumerated(EnumType.STRING)
-    //private Set<MangaCategories> categories;
 
     private String description;
 

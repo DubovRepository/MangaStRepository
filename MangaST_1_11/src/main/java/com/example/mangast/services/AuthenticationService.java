@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,8 +42,6 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final EmailServiceImp emailService;
 
-    @Value("${application.mailing.frontend.activation-url}")
-    private String activationUrl;
 
     @Transactional
     public AuthenticationResponse newAuthenticate(AuthenticationRequest request) throws MessagingException {
@@ -56,21 +53,19 @@ public class AuthenticationService {
         );
 
         var claims = new HashMap<String, Object>();
-        //var user = ((User) auth.getPrincipal());
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new UsernameNotFoundException("User with this email not exist!"));
 
-        //???
+
         if(user.isBanned()) {
             throw new AuthenticationFailedException("Your account was banned!");
         }
-        //???
+
 
         //claims.put("fullName", user.getFullName()); !!!!!!!!!!!!!!
         String jwtToken = "";
         if(request.isRemember()) {
              jwtToken = jwtService.generateLongToken(claims, (User) auth.getPrincipal());
         } else if (!request.isRemember()) {
-            //var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
             jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
         }
 
@@ -78,8 +73,6 @@ public class AuthenticationService {
         saveUserToken(user, jwtToken);
 
         return AuthenticationResponse.builder()
-                .userRole(user.getRole().name())
-                .UserPageId(user.getUserPageId())
                 .accessToken(jwtToken)
                 .build();
     }
@@ -113,7 +106,6 @@ public class AuthenticationService {
     public AuthenticationResponse activateAccount(RegisterRequest request) throws MessagingException {
         var pageId = generateUserPageId(10);
 
-
         var user = User.builder()
                 .email(request.getEmail())
                 .nickname(request.getNickname())
@@ -141,25 +133,9 @@ public class AuthenticationService {
         saveUserToken(user, jwtToken);
 
         return AuthenticationResponse.builder()
-                .userRole(user.getRole().name())
-                .UserPageId(user.getUserPageId())
                 .accessToken(jwtToken)
                 .build();
 
-        /*
-        Token savedToken = tokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("Invalid token"));
-        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
-            sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token kas expired. A new token has been send to the same email address");
-        }
-
-        var user = userRepository.findById(savedToken.getUser().getId())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        user.setActivated(true);
-        userRepository.save(user);
-
-        savedToken.setValidatedAt(LocalDateTime.now());
-        tokenRepository.save(savedToken); */
     }
 
     public void logoutAccount(String token) {
@@ -235,29 +211,11 @@ public class AuthenticationService {
 
 
     private String generateActivationCode(int length) {
-        String characters = "0123456789";
-        StringBuilder codeBuilder = new StringBuilder();
-
-        SecureRandom secureRandom = new SecureRandom();
-
-        for(int i = 0; i < length; i++) {
-            int randomIndex = secureRandom.nextInt(characters.length());
-            codeBuilder.append(characters.charAt(randomIndex));
-        }
-        return codeBuilder.toString();
+        return generateCode(length);
     }
 
     private String generateUserPageId(int length) {
-        String characters = "0123456789";
-        StringBuilder pageIdBuilder = new StringBuilder();
-
-        SecureRandom secureRandom = new SecureRandom();
-
-        for (int i = 0; i < length; i++) {
-            int randomIndex = secureRandom.nextInt(characters.length());
-            pageIdBuilder.append(characters.charAt(randomIndex));
-        }
-        return pageIdBuilder.toString();
+        return generateCode(length);
     }
 
 
@@ -271,6 +229,19 @@ public class AuthenticationService {
         String confirmToken = generateActivationCode(6);
         emailService.sendRecoverMessage(email, email, confirmToken);
         return confirmToken;
+    }
+
+    private String generateCode(int n) {
+        String characters = "0123456789";
+        StringBuilder codeBuilder = new StringBuilder();
+
+        SecureRandom secureRandom = new SecureRandom();
+
+        for(int i = 0; i < n; i++) {
+            int randomIndex = secureRandom.nextInt(characters.length());
+            codeBuilder.append(characters.charAt(randomIndex));
+        }
+        return codeBuilder.toString();
     }
 
 }

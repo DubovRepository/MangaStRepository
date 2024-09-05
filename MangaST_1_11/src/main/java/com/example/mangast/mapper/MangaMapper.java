@@ -10,8 +10,8 @@ import java.util.List;
 public class MangaMapper {
 
     public static List<MangaResponse> toMangaResponseList(Page<Manga> mangaList) {
-        return mangaList.stream().map((manga) -> {
-            return MangaResponse.builder()
+        return mangaList.stream().map(manga ->
+                MangaResponse.builder()
                     .id(manga.getId())
                     .mangaCover(FileUtils.readFileFromLocation(manga.getMangaCover()))
                     .typeManga(manga.getTypeManga())
@@ -22,7 +22,7 @@ public class MangaMapper {
                     .authorName(manga.getAuthorName())
                     .mangaPageId(manga.getMangaPageId())
                     .status(manga.getStatus())
-                    .build();
-        }).toList();
+                    .build()
+        ).toList();
     }
 }

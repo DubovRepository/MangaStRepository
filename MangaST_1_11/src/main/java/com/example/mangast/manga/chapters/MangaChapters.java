@@ -22,9 +22,6 @@ import java.time.LocalDateTime;
 public class MangaChapters {
 
 
-    //@EmbeddedId
-    //private MangaChaptersPK pk;
-
     @Id
     @GeneratedValue()
     private Integer id;
@@ -39,9 +36,6 @@ public class MangaChapters {
 
 
     private boolean verified;
-    //@ManyToOne
-    //@JoinColumn(name = "translator_id")
-    //private User translator;
 
     private String content; //PDF FILE
 

@@ -15,7 +15,6 @@ public class ChaptersRequest {
     private Integer mangaId;
 
     @NotEmpty(message = "White the chapter number")
-    @NotNull(message = "White the chapter number")
     private float numberChapter;
 
 
@@ -24,7 +23,5 @@ public class ChaptersRequest {
     @Size(min = 3, message = "Title should be 3 characters long minimum!")
     private String chapterTitle;
 
-    //@NotEmpty(message = "choose a PDF file!")
-    //@NotNull(message = "choose a PDF file!")
-    //private String content; //PDF file --> возможно придется изменить на byte[] или что то другое
+
 }

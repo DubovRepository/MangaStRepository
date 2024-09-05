@@ -23,9 +23,8 @@ public class MangaRequest {
         @NotNull(message = "101")
         @NotEmpty(message = "101")
         private String authorName;
-        //@NotNull(message = "102")
-        //@Size(min = 1,max = 1, message = "Choice the manga status")
-        //@NotEmpty(message = "103")
+
+
         private TypeManga typeManga;
 
         @NotNull(message = "102")
@@ -33,17 +32,9 @@ public class MangaRequest {
         private String description;
 
         @NotNull(message = "103")
-        //@NotEmpty(message = "103")
         @Size(min = 1, message = "Choice at least one category")
         private List<Category> mangaCategories;
 
-        //@NotNull(message = "105")
-        //@Size(min = 1, max = 1, message = "Choice the manga status")
-        //@NotEmpty(message = "105")
         private MangaStatus status;
 
-        /*
-        @NotNull(message = "105")
-        @NotEmpty(message = "105")
-        String pathTitle */
 }

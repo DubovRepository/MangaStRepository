@@ -1411,12 +1411,6 @@
         "properties": {
           "accessToken": {
             "type": "string"
-          },
-          "userRole": {
-            "type": "string"
-          },
-          "userPageId": {
-            "type": "string"
           }
         }
       },

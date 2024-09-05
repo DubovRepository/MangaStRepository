@@ -8,7 +8,6 @@ import com.example.mangast.services.JwtService;
 import com.example.mangast.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +37,7 @@ public class ForgotPasswordService {
             throw new PersonalUserException("Passwords not matches!");
         }
 
-
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found!"));
-
-//        if(request.getNewPassword().equals(user.getPassword())) {
-//            throw new PersonalUserException("New password should be tell apart of currently password");
-//        }
 
         if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
             throw new PersonalUserException("New password should be tell apart of currently password");
@@ -64,8 +58,6 @@ public class ForgotPasswordService {
         //var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
         var jwtToken = jwtService.generateToken(claims, newUser);
         return AuthenticationResponse.builder()
-                .UserPageId(newUser.getUserPageId())
-                .userRole(newUser.getRole().name())
                 .accessToken(jwtToken)
                 .build();
 

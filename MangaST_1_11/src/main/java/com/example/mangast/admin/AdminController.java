@@ -1,7 +1,5 @@
 package com.example.mangast.admin;
 
-
-import com.example.mangast.admin.AdminService;
 import com.example.mangast.manga.MangaRequest;
 import com.example.mangast.manga.MangaResponse;
 import com.example.mangast.manga.UpdateMangaRequest;
@@ -39,8 +37,6 @@ public class AdminController {
     @PostMapping("/update")
     public ResponseEntity<Integer> updateManga(
             @RequestBody @Valid UpdateMangaRequest request,
-            //@Parameter
-            //@RequestPart("file") MultipartFile file,
             Authentication connectedUser
     ) {
         return ResponseEntity.ok(adminService.update(request, connectedUser));

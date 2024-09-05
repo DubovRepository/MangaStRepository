@@ -83,7 +83,7 @@ public class MangaChapterService {
     }
 
     private List<ChapterResponse> findVerifiedChapterListByManga(Manga manga) {
-         List<ChapterResponse> chaptersList = repository.findAllVerifiedChaptersByManga(manga).stream()
+         return repository.findAllVerifiedChaptersByManga(manga).stream()
                  .map((chapter) -> ChapterResponse.builder()
                          .id(chapter.getId())
                          .title(chapter.getTitle())
@@ -91,16 +91,5 @@ public class MangaChapterService {
                          .content(FileUtils.readFileFromLocation(chapter.getContent()))
                          .mangaPageId(manga.getMangaPageId())
                          .build()).toList();
-         return chaptersList;
-        /*
-        List<MangaChapters> chaptersList = repository.findAllVerifiedChaptersByManga(manga);
-        List<ChapterResponse> responseList = chaptersList.stream().map((chapter) -> ChapterResponse.builder()
-                .id(chapter.getId())
-                .title(chapter.getTitle())
-                .number(chapter.getNumber())
-                .content(FileUtils.readFileFromLocation(chapter.getContent()))
-                .mangaPageId(manga.getMangaPageId())
-                .build()).toList();
-        return responseList; */
     }
 }

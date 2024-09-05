@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,8 +63,8 @@ public class UserService {
         if(favList.isEmpty()) {
             throw new RuntimeException("Sorry, but you don`t have favorite manga");
         }
-        List<MangaResponse> listResponse = favList.stream().map((manga) -> {
-            return MangaResponse.builder()
+        List<MangaResponse> listResponse = favList.stream().map(manga ->
+            MangaResponse.builder()
                     .id(manga.getId())
                     .mangaCover(FileUtils.readFileFromLocation(manga.getMangaCover()))
                     .typeManga(manga.getTypeManga())
@@ -76,9 +75,9 @@ public class UserService {
                     .achieved(true)
                     .status(manga.getStatus())
                     .authorName(manga.getAuthorName())
-                    .build();
-        }).toList();
-        var responsePage = new PageResponse<>(
+                    .build()
+        ).toList();
+        return new PageResponse<>(
                 listResponse,
                 favList.getNumber(),
                 favList.getSize(),
@@ -87,13 +86,12 @@ public class UserService {
                 favList.isFirst(),
                 favList.isLast()
         );
-        return responsePage;
     }
 
     public UserResponse infoByUser(Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
 
-        var response = UserResponse.builder()
+        return UserResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
@@ -106,8 +104,6 @@ public class UserService {
                 .aboutYou(user.getAboutYou())
                 .birthday(user.getBirthday())
                 .userCover(FileUtils.readFileFromLocation(user.getUserCover()))
-                //.favoritePageList(responsePage)
                 .build();
-        return response;
     }
 }

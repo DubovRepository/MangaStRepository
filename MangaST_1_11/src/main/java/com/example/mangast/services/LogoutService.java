@@ -1,6 +1,5 @@
 package com.example.mangast.services;
 
-import com.example.mangast.user.User;
 import com.example.mangast.user.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class LogoutService implements LogoutHandler {
     private final TokenRepository repository;
 
-
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         final String authHeader = request.getHeader("Authorization");
@@ -26,22 +24,6 @@ public class LogoutService implements LogoutHandler {
             log.info("Not found token");
             return;
         }
-
-
-
-        /*
-        var expiredTokens = repository.findAllValidTokensByUser(user.getId());
-
-
-        expiredTokens.stream()
-                .map(token -> {
-                    token.setRevoked(true);
-                    token.setExpiredToken(true);
-                    return token;
-                });
-        repository.saveAll(expiredTokens);
-        */
-
 
         jwtToken = authHeader.substring(7);
         log.info("JWT token: " + jwtToken);

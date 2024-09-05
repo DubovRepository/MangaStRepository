@@ -2,7 +2,6 @@
 package com.example.mangast.manga;
 
 import com.example.mangast.manga.categories.Category;
-import com.example.mangast.manga.categories.MangaCategories;
 import com.example.mangast.manga.chapters.MangaChapters;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +15,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -65,8 +63,6 @@ public class Manga {
     @Enumerated(EnumType.STRING)
     private TypeManga typeManga;
 
-    //@Enumerated(EnumType.STRING)
-    //private Set<MangaCategories> categories;
 
     @OneToMany(mappedBy = "manga")
     private List<MangaChapters> chapters;
@@ -76,8 +72,6 @@ public class Manga {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    //@OneToMany(mappedBy = "pk.manga")
-    //private List<MangaCategory> category;
 
     @OneToMany
     private List<Category> category;

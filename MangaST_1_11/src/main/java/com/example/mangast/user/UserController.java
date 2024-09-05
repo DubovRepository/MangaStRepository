@@ -5,7 +5,6 @@ import com.example.mangast.page.PageResponse;
 import com.example.mangast.services.UserService;
 import com.example.mangast.user.role.Role;
 import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("user")
 public class UserController {
     private final UserService service;
-
 
     @GetMapping("/findNickname")
     public String findNickname(Authentication connectedUser) {

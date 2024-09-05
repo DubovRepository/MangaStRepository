@@ -1,7 +1,5 @@
 package com.example.mangast.services;
 
-import com.example.mangast.request.RegisterRequest;
-import com.example.mangast.user.User;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,27 +17,6 @@ public class EmailServiceImp {
     @Value("${spring.mail.username}")
     private String sendFrom;
 
-    public void sendConfirmMessage(
-            RegisterRequest request, String code
-    ) {
-        try {
-            MimeMessage mimeMessage = emailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-
-            mimeMessageHelper.setFrom(sendFrom);
-            mimeMessageHelper.setTo(request.getEmail());
-            mimeMessageHelper.setCc(sendFrom);
-            mimeMessageHelper.setSubject("Confirm account by MangaSt");
-            mimeMessageHelper.setText("Enter this code for confirm your account: " + code);
-
-            //mimeMessageHelper.addAttachment(file.getOriginalFilename(), new ByteArrayResource(file.getBytes()));
-
-            emailSender.send(mimeMessage);
-            log.info("Message sending!");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Async
     public void sendValidMessage(

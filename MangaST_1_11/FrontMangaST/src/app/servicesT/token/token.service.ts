@@ -14,21 +14,6 @@ export class TokenService {
     return localStorage.getItem('token') as string;
   }
 
-  set role(role: string) {
-    localStorage.setItem('role', role);
-  }
-
-  get role() {
-    return localStorage.getItem('role') as string;
-  }
-
-  set pageId(pageId: string) {
-    localStorage.setItem('pageId', pageId);
-  }
-
-  get pageId() {
-    return localStorage.getItem('pageId') as string;
-  }
 
   isTokenNotValid() {
     return !this.isTokenValid();

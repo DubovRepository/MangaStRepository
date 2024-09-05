@@ -83,8 +83,6 @@ export class ForgotPasswordComponent implements OnInit {
     }).subscribe({
       next: (res) => {
         this.tokenService.token = res.accessToken as string;
-        this.tokenService.role = res.userRole as string;
-        this.tokenService.pageId = res.userPageId as string;
         this.router.navigate(['main']);
       },
       error: (err) => {

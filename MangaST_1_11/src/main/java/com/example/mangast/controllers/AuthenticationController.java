@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +34,6 @@ public class AuthenticationController {
     public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request)
     throws MessagingException
     {
-        //var response = service.register(request);
-        //return ResponseEntity.ok(response);
 
         return ResponseEntity.ok(service.newRegister(request));
     }
@@ -58,11 +55,8 @@ public class AuthenticationController {
     }
 
 
-
     @PostMapping("/authenticate")
-    //@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) throws MessagingException {
-        //return ResponseEntity.ok(service.authenticate(request));
         return ResponseEntity.ok(service.newAuthenticate(request));
     }
 

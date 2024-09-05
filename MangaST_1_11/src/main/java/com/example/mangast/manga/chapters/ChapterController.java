@@ -1,9 +1,7 @@
 package com.example.mangast.manga.chapters;
 
 import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

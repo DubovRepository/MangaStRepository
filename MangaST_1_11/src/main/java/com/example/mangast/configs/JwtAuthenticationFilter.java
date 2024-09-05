@@ -31,7 +31,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        //Из проекта  book-social-network-main
         if (request.getServletPath().contains("/mangaSt/auth")) {
             filterChain.doFilter(request, response);
             return;

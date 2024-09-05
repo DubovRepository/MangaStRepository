@@ -1,7 +1,5 @@
 package com.example.mangast.manga.chapters;
 
-import com.example.mangast.manga.Manga;
-import com.example.mangast.user.User;
 
 import lombok.*;
 
@@ -22,8 +20,5 @@ public class ChapterResponse {
 
     private String mangaPageId;
 
-    //private Manga manga;
-
-    //private User translator;
 
 }

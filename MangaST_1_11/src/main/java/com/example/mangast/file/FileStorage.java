@@ -35,8 +35,7 @@ public class FileStorage {
     }
 
 
-    //chapters
-    //Добавить сюда separator + numberId
+    //save chapter pdf
     public String saveChapterPdfFile(
             MultipartFile sourceFile,
             @Nonnull Integer mangaId,
@@ -47,7 +46,7 @@ public class FileStorage {
         return uploadFile(sourceFile, fileUploadSubPath);
     }
 
-    //Save manga
+    //Save manga cover
     public String saveUploadFile(
             @Nonnull MultipartFile sourceFile,
             @Nonnull Integer mangaId
@@ -57,7 +56,7 @@ public class FileStorage {
     }
 
 
-
+    //Delete manga directory
     public void deleteMangaDirectory(Integer mangaId) {
         String subPath = "manga" + separator + mangaId;
         final  String finalPath = fileUploadPath + separator + subPath;
@@ -69,7 +68,6 @@ public class FileStorage {
             throw new RuntimeException(e);
         }
     }
-
 
 
     //Onload picture on server
