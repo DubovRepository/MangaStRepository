@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -166,7 +167,6 @@ public class MangaStApplication {
             admin_user.setFavoriteList(List.of(firstManga, thirdManga));
 
             userRepository.save(admin_user); */
-
 
 
         };

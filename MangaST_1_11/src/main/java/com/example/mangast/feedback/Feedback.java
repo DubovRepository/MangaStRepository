@@ -1,5 +1,6 @@
 package com.example.mangast.feedback;
 
+import com.example.mangast.manga.Manga;
 import com.example.mangast.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +28,13 @@ public class Feedback {
 
     private float rate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "manga_id", nullable = false)
+    private Manga manga;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -46,4 +51,6 @@ public class Feedback {
     @LastModifiedBy
     @Column(insertable = false)
     private Integer lastModifiedBy;
+
+
 }
