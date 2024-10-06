@@ -44,7 +44,7 @@ public class User implements UserDetails, Principal {
     private String firstname;
     private String lastname;
     private String aboutYou; //Описание о себе
-    private LocalDate birthday;
+    private LocalDate birthdate;
     private String userCover;
 
     @OneToMany(fetch = FetchType.EAGER)

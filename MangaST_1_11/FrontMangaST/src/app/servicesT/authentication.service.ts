@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {RegRequest} from "../models/reg-request";
-import {AuthResponse} from "../models/auth-response";
-import {AuthRequest} from "../models/auth-request";
-import {RegisterResponse} from "../models/RegisterResponse";
+
 
 
 @Injectable({
@@ -17,6 +14,7 @@ export class AuthenticationService {
     private http: HttpClient
   ) { }
 
+  /*
   register(
     registerRequest: { body: RegRequest }
   ) {
@@ -37,4 +35,5 @@ export class AuthenticationService {
   authenticate(authRequest: AuthRequest) {
     return this.http.post<AuthResponse>(`${this.baseUrl}/authenticate`, authRequest);
   }
+   */
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Product} from "../models/product";
 import {Observable} from "rxjs";
-import {Chapter} from "../models/chapter";
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +14,7 @@ export class ProductionService {
     private http: HttpClient
   ) { }
 
+  /*
   findAllProductions() : Observable<Product[]> {
    return this.http.get<Product[]>(this.baseUrl)
   }
@@ -31,4 +31,5 @@ export class ProductionService {
   findChaptersByProdId(id: number) {
     return this.http.get<Chapter[]>(`${this.baseUrl}/chapters/${id}`);
   }
+   */
 }

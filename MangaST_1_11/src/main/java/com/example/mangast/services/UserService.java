@@ -102,7 +102,7 @@ public class UserService {
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .aboutYou(user.getAboutYou())
-                .birthday(user.getBirthday())
+                .birthday(user.getBirthdate())
                 .userCover(FileUtils.readFileFromLocation(user.getUserCover()))
                 .build();
     }
