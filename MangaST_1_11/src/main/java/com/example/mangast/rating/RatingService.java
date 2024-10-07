@@ -1,4 +1,4 @@
-package com.example.mangast.feedback;
+package com.example.mangast.rating;
 
 import com.example.mangast.manga.MangaRepository;
 import com.example.mangast.user.User;
@@ -10,39 +10,39 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class FeedbackService {
+public class RatingService {
     private final MangaRepository mangaRepository;
-    private final FeedbackRepository repository;
+    private final RatingRepository repository;
 
 
     //to all (catalog/manga-page)
     @PermitAll
-    public float getAverage(Integer mangaId) {
+    public Float getAverage(Integer mangaId) {
         var manga = mangaRepository.findById(mangaId).orElseThrow(() -> new RuntimeException("Manga with this id not exists!"));
 
         float avg = Math.round(repository.getAverageByManga(manga) * 10)/10F;
-        return avg;
+        return new Float(avg);
     }
 
     //to User
     @PreAuthorize("hasAnyRole('ADMIN','MODER','USER')")
-    public void addFeedBack(Authentication connectedUser, Integer mangaId, float userRate) {
-        if(userRate < 1) {
+    public void addRating(Authentication connectedUser, RatingRequest request) {
+        if(request.getUserRate() < 1) {
             return;
         }
         User user = ((User) connectedUser.getPrincipal());
-        var checkFeedBack = repository.checkAlreadyExistsFeedback(mangaId, user);
+        var checkFeedBack = repository.checkAlreadyExistsRating(request.getMangaId(), user);
         if(checkFeedBack != null) {
-            checkFeedBack.setRate(userRate);
+            checkFeedBack.setRate(request.getUserRate());
             repository.save(checkFeedBack);
             return;
             //Можно добавить else и запихнуть оставшуюся часть тела функции туда.
         }
 
-        var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not exists!"));
+        var manga = mangaRepository.findById(request.getMangaId()).orElseThrow(()-> new RuntimeException("Manga with this id not exists!"));
 
-        var newFeedBack = Feedback.builder()
-                .rate(userRate)
+        var newFeedBack = Rating.builder()
+                .rate(request.getUserRate())
                 .manga(manga)
                 .user(user)
                 .build();

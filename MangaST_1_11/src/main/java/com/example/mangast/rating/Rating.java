@@ -1,4 +1,4 @@
-package com.example.mangast.feedback;
+package com.example.mangast.rating;
 
 import com.example.mangast.manga.Manga;
 import com.example.mangast.user.User;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Feedback {
+public class Rating {
 
     @Id
     @GeneratedValue
