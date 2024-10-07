@@ -3,7 +3,9 @@ package com.example.mangast.comments;
 import com.example.mangast.manga.MangaRepository;
 import com.example.mangast.user.User;
 import com.example.mangast.user.role.Role;
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class CommentService {
     private final MangaRepository mangaRepository;
 
     //get all comment by manga to manga-page
+    @PermitAll
     public List<Comment> getComments(Integer mangaId) {
         var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
 
@@ -26,6 +29,7 @@ public class CommentService {
 
     //add comment
     //Добавить request, которой бы проверял длинну сообщения
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
     public void addComment(Authentication connectedUser, Integer mangaId, String content) {
         User user = ((User) connectedUser.getPrincipal());
         var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
@@ -55,6 +59,7 @@ public class CommentService {
 
 
     //delete comment
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteCommentById(Authentication connectedUser, Integer commentId) {
         User user = ((User) connectedUser.getPrincipal());
 
@@ -63,6 +68,7 @@ public class CommentService {
 
     //To admin
     //edit comment
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Comment> editComment(Authentication connectedUser, Integer commentId, String editContent) {
         User user = ((User) connectedUser.getPrincipal());
 

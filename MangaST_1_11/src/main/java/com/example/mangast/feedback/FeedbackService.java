@@ -2,7 +2,9 @@ package com.example.mangast.feedback;
 
 import com.example.mangast.manga.MangaRepository;
 import com.example.mangast.user.User;
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class FeedbackService {
 
 
     //to all (catalog/manga-page)
+    @PermitAll
     public float getAverage(Integer mangaId) {
         var manga = mangaRepository.findById(mangaId).orElseThrow(() -> new RuntimeException("Manga with this id not exists!"));
 
@@ -22,6 +25,7 @@ public class FeedbackService {
     }
 
     //to User
+    @PreAuthorize("hasAnyRole('ADMIN','MODER','USER')")
     public void addFeedBack(Authentication connectedUser, Integer mangaId, float userRate) {
         if(userRate < 1) {
             return;
