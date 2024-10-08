@@ -1,6 +1,8 @@
 package com.example.mangast.comments;
 
+import com.example.mangast.file.FileUtils;
 import com.example.mangast.manga.MangaRepository;
+import com.example.mangast.user.SmallUserResponse;
 import com.example.mangast.user.User;
 import com.example.mangast.user.role.Role;
 import jakarta.annotation.security.PermitAll;
@@ -20,24 +22,45 @@ public class CommentService {
 
     //get all comment by manga to manga-page
     @PermitAll
-    public List<Comment> getComments(Integer mangaId) {
+    public List<CommentResponse> getComments(Integer mangaId) {
         var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
 
-        return repository.findAllByManga(manga);
+        return repository.findAllByManga(manga).stream().map(comment -> {
+            var userSmallResponse = SmallUserResponse.builder()
+                    .id(comment.getUser().getId())
+                    .userPageId(comment.getUser().getUserPageId())
+                    .nickname(comment.getUser().getNickname())
+                    .userCover(FileUtils.readFileFromLocation(comment.getUser().getUserCover()))
+                    .build();
+            return CommentResponse.builder()
+                    .id(comment.getId())
+                    .message(comment.getMessage())
+                    .user(userSmallResponse)
+                    .build();
+        }).toList();
     }
 
 
     //add comment
     //Добавить request, которой бы проверял длинну сообщения
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
-    public void addComment(Authentication connectedUser, Integer mangaId, String content) {
+    public void addComment(Authentication connectedUser, CommentRequest request) {
         User user = ((User) connectedUser.getPrincipal());
-        var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
+        var manga = mangaRepository.findById(request.getMangaId()).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
 
         var previousComment = repository.findPreviousCommentByUser(manga, user);
-        if(previousComment != null && LocalDateTime.now().isAfter(previousComment.get().getCreatedDate().plusMinutes(30))) {
+        //Возможно придется поменять isPresent() на != null
+        if(previousComment.isEmpty()) {
             var comment = Comment.builder()
-                    .message(content)
+                    .message(request.getContent())
+                    .manga(manga)
+                    .user(user)
+                    .build();
+            repository.save(comment);
+            //???
+        } else if (previousComment.isPresent() && LocalDateTime.now().isAfter(previousComment.get().getCreatedDate().plusMinutes(30))) {
+            var comment = Comment.builder()
+                    .message(request.getContent())
                     .manga(manga)
                     .user(user)
                     .build();
@@ -59,7 +82,7 @@ public class CommentService {
 
 
     //delete comment
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','MODER')")
     public void deleteCommentById(Authentication connectedUser, Integer commentId) {
         User user = ((User) connectedUser.getPrincipal());
 
@@ -69,19 +92,30 @@ public class CommentService {
     //To admin
     //edit comment
     @PreAuthorize("hasRole('ADMIN')")
-    public List<Comment> editComment(Authentication connectedUser, Integer commentId, String editContent) {
+    //public List<CommentResponse> editComment(Authentication connectedUser, EditCommentRequest request) {
+    public void editComment(Authentication connectedUser, EditCommentRequest request) {
         User user = ((User) connectedUser.getPrincipal());
 
-        var currentComment = repository.findById(commentId).orElseThrow(() -> new RuntimeException("Comment with this id not found!"));
-        if(user.getRole() == Role.ADMIN || user.getRole() == Role.MODER) {
-            currentComment.setMessage(editContent);
+        var currentComment = repository.findById(request.getCommentId()).orElseThrow(() -> new RuntimeException("Comment with this id not found!"));
+            currentComment.setMessage(request.getEditContent());
             repository.save(currentComment);
 
             //Возвращаем обновленный список комментариев (возможно придется убрать)
-            return repository.findAllByManga(currentComment.getManga());
-        } else {
-            throw new RuntimeException("You are not admin/moderator!");
-        }
+        /*
+            return repository.findAllByManga(currentComment.getManga()).stream().map(comment -> {
+                var tmpUser = comment.getUser();
+                var userSmallResponse = SmallUserResponse.builder()
+                        .id(tmpUser.getId())
+                        .userPageId(tmpUser.getUserPageId())
+                        .nickname(tmpUser.getNickname())
+                        .userCover(FileUtils.readFileFromLocation(comment.getUser().getUserCover()))
+                        .build();
+                return CommentResponse.builder()
+                        .id(comment.getId())
+                        .message(comment.getMessage())
+                        .user(userSmallResponse)
+                        .build();
+            }).toList(); */
 
     }
 
