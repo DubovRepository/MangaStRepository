@@ -1,6 +1,11 @@
 package com.example.mangast.manga;
 
+import com.example.mangast.comments.Comment;
+import com.example.mangast.comments.CommentResponse;
+import com.example.mangast.manga.categories.Category;
 import lombok.*;
+
+import java.util.List;
 
 
 @Getter
@@ -31,6 +36,10 @@ public class MangaResponse {
     private String description;
 
     private Double rating;
+
+    private List<Category> categoryList;
+
+    private List<CommentResponse> comments;
 
 
 }

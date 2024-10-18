@@ -24,10 +24,12 @@ public class CategoriesController {
     }
 
 
+    /*
     @GetMapping("/findCategoriesByManga")
     public ResponseEntity<List<Category>> findCategoriesByMangaId(
             Integer mangaId
     ) {
         return ResponseEntity.ok(service.findCategoriesByMangaId(mangaId));
     }
+     */
 }

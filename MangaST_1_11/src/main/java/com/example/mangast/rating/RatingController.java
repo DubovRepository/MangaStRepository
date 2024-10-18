@@ -18,8 +18,10 @@ public class RatingController {
         return ResponseEntity.accepted().build();
     }
 
+    /*
     @GetMapping("/getAverageRate/{mangaId}")
     public ResponseEntity<Double> getAVG(@PathVariable("mangaId") Integer mangaId) {
         return ResponseEntity.ok(service.getAverage(mangaId));
     }
+     */
 }

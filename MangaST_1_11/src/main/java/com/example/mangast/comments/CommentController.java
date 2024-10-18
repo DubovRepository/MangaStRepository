@@ -15,10 +15,12 @@ public class CommentController {
     private final CommentService service;
 
     //to all
+    /*
     @GetMapping("/getComments/{mangaId}")
     public ResponseEntity<List<CommentResponse>> getAllCommentsByManga(@PathVariable("mangaId") Integer mangaId) {
         return ResponseEntity.ok(service.getComments(mangaId));
     }
+     */
 
     //to user
     @PostMapping("/addComment")

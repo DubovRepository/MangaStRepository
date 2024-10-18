@@ -1,6 +1,7 @@
 
 package com.example.mangast.manga;
 
+import com.example.mangast.comments.Comment;
 import com.example.mangast.manga.categories.Category;
 import com.example.mangast.manga.chapters.MangaChapters;
 import com.example.mangast.rating.Rating;
@@ -80,7 +81,8 @@ public class Manga {
     @OneToMany
     private List<Category> category;
 
-
+    @OneToMany(mappedBy = "manga")
+    private List<Comment> comments;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -11,7 +11,7 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
     SELECT AVG(fb.rate) FROM Rating fb
     WHERE fb.manga.id = :currentManga
     """)
-    float getAverageByManga(Manga currentManga);
+    double getAverageByManga(Manga currentManga);
 
     @Query("""
     SELECT fb FROM Rating fb

@@ -2,6 +2,7 @@ package com.example.mangast.manga;
 
 import com.example.mangast.file.FileUtils;
 import com.example.mangast.manga.categories.MangaCategories;
+import com.example.mangast.mapper.MangaMapper;
 import com.example.mangast.page.PageResponse;
 import com.example.mangast.user.User;
 import com.example.mangast.user.UserRepository;
@@ -62,6 +63,8 @@ public class MangaService {
                         .status(manga.getStatus())
                         .description(manga.getDescription())
                         .rating(manga.getAverageRate())
+                        .categoryList(manga.getCategory())
+                        .comments(MangaMapper.CommentListToCommentResponse(manga.getComments()))
                         .build();
                 mangaResponseList.add(tmpMangaResponse);
         });
@@ -77,8 +80,6 @@ public class MangaService {
         );
 
     }
-
-
 
     public void addToFavorite(Integer mangaId, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
@@ -141,6 +142,8 @@ public class MangaService {
                 .mangaPageId(manga.getMangaPageId())
                 .status(manga.getStatus())
                 .rating(manga.getAverageRate())
+                .comments(MangaMapper.CommentListToCommentResponse(manga.getComments()))
+                .categoryList(manga.getCategory())
                 .build();
     }
 
