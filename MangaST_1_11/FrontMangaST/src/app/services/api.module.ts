@@ -5,7 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { UserControllerService } from './services/user-controller.service';
+import { RatingControllerService } from './services/rating-controller.service';
 import { MangaControllerService } from './services/manga-controller.service';
+import { CommentControllerService } from './services/comment-controller.service';
 import { ChapterControllerService } from './services/chapter-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { AdminControllerService } from './services/admin-controller.service';
@@ -21,7 +23,9 @@ import { CategoriesService } from './services/categories.service';
   declarations: [],
   providers: [
     UserControllerService,
+    RatingControllerService,
     MangaControllerService,
+    CommentControllerService,
     ChapterControllerService,
     AuthenticationControllerService,
     AdminControllerService,

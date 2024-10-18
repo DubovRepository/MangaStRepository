@@ -6,16 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Category } from '../../models/category';
+import { RatingRequest } from '../../models/rating-request';
 
-export interface FindCategoriesByMangaId$Params {
-  mangaId: number;
+export interface RateManga$Params {
+      body: RatingRequest
 }
 
-export function findCategoriesByMangaId(http: HttpClient, rootUrl: string, params: FindCategoriesByMangaId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
-  const rb = new RequestBuilder(rootUrl, findCategoriesByMangaId.PATH, 'get');
+export function rateManga(http: HttpClient, rootUrl: string, params: RateManga$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+  const rb = new RequestBuilder(rootUrl, rateManga.PATH, 'post');
   if (params) {
-    rb.query('mangaId', params.mangaId, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -23,9 +24,10 @@ export function findCategoriesByMangaId(http: HttpClient, rootUrl: string, param
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Category>>;
+      return r as StrictHttpResponse<{
+      }>;
     })
   );
 }
 
-findCategoriesByMangaId.PATH = '/categories/findCategoriesByManga';
+rateManga.PATH = '/rating/addRating';

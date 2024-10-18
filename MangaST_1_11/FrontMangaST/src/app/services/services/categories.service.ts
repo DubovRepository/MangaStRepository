@@ -12,8 +12,6 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { Category } from '../models/category';
 import { findAllMangaCategories } from '../fn/categories/find-all-manga-categories';
 import { FindAllMangaCategories$Params } from '../fn/categories/find-all-manga-categories';
-import { findCategoriesByMangaId } from '../fn/categories/find-categories-by-manga-id';
-import { FindCategoriesByMangaId$Params } from '../fn/categories/find-categories-by-manga-id';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService extends BaseService {
@@ -42,31 +40,6 @@ export class CategoriesService extends BaseService {
    */
   findAllMangaCategories(params?: FindAllMangaCategories$Params, context?: HttpContext): Observable<Array<Category>> {
     return this.findAllMangaCategories$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<Category>>): Array<Category> => r.body)
-    );
-  }
-
-  /** Path part for operation `findCategoriesByMangaId()` */
-  static readonly FindCategoriesByMangaIdPath = '/categories/findCategoriesByManga';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findCategoriesByMangaId()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findCategoriesByMangaId$Response(params: FindCategoriesByMangaId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
-    return findCategoriesByMangaId(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findCategoriesByMangaId$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findCategoriesByMangaId(params: FindCategoriesByMangaId$Params, context?: HttpContext): Observable<Array<Category>> {
-    return this.findCategoriesByMangaId$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Category>>): Array<Category> => r.body)
     );
   }
