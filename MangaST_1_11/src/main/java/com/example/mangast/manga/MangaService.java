@@ -64,7 +64,7 @@ public class MangaService {
                         .description(manga.getDescription())
                         .rating(manga.getAverageRate())
                         .categoryList(manga.getCategory())
-                        .comments(MangaMapper.CommentListToCommentResponse(manga.getComments()))
+                        .comments(MangaMapper.commentListToCommentResponse(manga.getComments()))
                         .build();
                 mangaResponseList.add(tmpMangaResponse);
         });
@@ -117,6 +117,8 @@ public class MangaService {
         if(connectedUser != null) {
             User user = ((User) connectedUser.getPrincipal());
             //var favoriteList = userRepository.findFavoriteListByUserId(user.getId());
+            tmpAchieve = user.getFavoriteList().stream().anyMatch(manga1 -> manga1.getMangaPageId().equals(mangaPageId));
+            /*
             var favoriteList = user.getFavoriteList();
             if (favoriteList.isEmpty()) {
                 tmpAchieve = false;
@@ -127,7 +129,7 @@ public class MangaService {
                         break;
                     }
                 }
-            }
+            } */
         }
 
         return MangaResponse.builder()
@@ -142,7 +144,7 @@ public class MangaService {
                 .mangaPageId(manga.getMangaPageId())
                 .status(manga.getStatus())
                 .rating(manga.getAverageRate())
-                .comments(MangaMapper.CommentListToCommentResponse(manga.getComments()))
+                .comments(MangaMapper.commentListToCommentResponse(manga.getComments()))
                 .categoryList(manga.getCategory())
                 .build();
     }

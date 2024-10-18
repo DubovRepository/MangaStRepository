@@ -1,7 +1,5 @@
 package com.example.mangast.comments;
 
-import com.example.mangast.user.SmallUserResponse;
-import com.example.mangast.user.UserResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +13,12 @@ public class CommentResponse {
 
     private String message;
 
-    private SmallUserResponse user;
+    private Integer userId;
+
+    private String nickname;
+
+    private String userPageId;
+
+    private byte[] userCover;
 
 }

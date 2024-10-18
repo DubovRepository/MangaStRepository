@@ -26,16 +26,13 @@ public class CommentService {
         var manga = mangaRepository.findById(mangaId).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));
 
         return repository.findAllByManga(manga).stream().map(comment -> {
-            var userSmallResponse = SmallUserResponse.builder()
-                    .id(comment.getUser().getId())
-                    .userPageId(comment.getUser().getUserPageId())
-                    .nickname(comment.getUser().getNickname())
-                    .userCover(FileUtils.readFileFromLocation(comment.getUser().getUserCover()))
-                    .build();
             return CommentResponse.builder()
                     .id(comment.getId())
                     .message(comment.getMessage())
-                    .user(userSmallResponse)
+                    .userId(comment.getUser().getId())
+                    .userPageId(comment.getUser().getUserPageId())
+                    .nickname(comment.getUser().getNickname())
+                    .userCover(FileUtils.readFileFromLocation(comment.getUser().getUserCover()))
                     .build();
         }).toList();
     }
