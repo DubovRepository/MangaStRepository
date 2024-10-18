@@ -19,7 +19,7 @@ public class RatingController {
     }
 
     @GetMapping("/getAverageRate/{mangaId}")
-    public ResponseEntity<Float> getAVG(@PathVariable("mangaId") Integer mangaId) {
+    public ResponseEntity<Double> getAVG(@PathVariable("mangaId") Integer mangaId) {
         return ResponseEntity.ok(service.getAverage(mangaId));
     }
 }

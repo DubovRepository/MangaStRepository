@@ -10,5 +10,5 @@ import lombok.Setter;
 public class RatingRequest {
     private Integer mangaId;
 
-    private float userRate;
+    private Double userRate;
 }

@@ -25,12 +25,6 @@ public class Token {
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
 
-    //private LocalDateTime createdAt;
-
-    //private LocalDateTime expiresAt;
-
-    //private LocalDateTime validatedAt;
-
     private boolean expiredToken;
 
     private boolean revoked;

@@ -28,8 +28,9 @@ public class MangaResponse {
 
     private MangaStatus status;
 
-
     private String description;
+
+    private Double rating;
 
 
 }

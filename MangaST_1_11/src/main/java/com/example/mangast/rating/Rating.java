@@ -26,7 +26,7 @@ public class Rating {
     @GeneratedValue
     private Integer id;
 
-    private float rate;
+    private Double rate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

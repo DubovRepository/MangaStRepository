@@ -17,11 +17,10 @@ public class RatingService {
 
     //to all (catalog/manga-page)
     @PermitAll
-    public Float getAverage(Integer mangaId) {
+    public Double getAverage(Integer mangaId) {
         var manga = mangaRepository.findById(mangaId).orElseThrow(() -> new RuntimeException("Manga with this id not exists!"));
 
-        float avg = Math.round(repository.getAverageByManga(manga) * 10)/10F;
-        return new Float(avg);
+        return Math.round(repository.getAverageByManga(manga) * 10)/10D;
     }
 
     //to User

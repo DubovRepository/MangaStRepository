@@ -22,6 +22,7 @@ public class MangaMapper {
                     .authorName(manga.getAuthorName())
                     .mangaPageId(manga.getMangaPageId())
                     .status(manga.getStatus())
+                        .rating(manga.getAverageRate())
                     .build()
         ).toList();
     }

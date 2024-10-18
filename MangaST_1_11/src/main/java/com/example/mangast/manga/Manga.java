@@ -3,6 +3,7 @@ package com.example.mangast.manga;
 
 import com.example.mangast.manga.categories.Category;
 import com.example.mangast.manga.chapters.MangaChapters;
+import com.example.mangast.rating.Rating;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -40,6 +41,9 @@ public class Manga {
 
     @Enumerated(EnumType.STRING)
     private MangaStatus status;
+
+    @OneToMany(mappedBy = "manga")
+    private List<Rating> ratings;
 
     /*
     Мы делаем так, мы везде ставим achieved false
@@ -105,6 +109,14 @@ public class Manga {
     @Override
     public int hashCode() {
         return Objects.hash(id, mangaPageId, createdDate);
+    }
+
+    public double getAverageRate() {
+        if(ratings==null || ratings.isEmpty()) {
+            return 0.0;
+        }
+        var rating = ratings.stream().mapToDouble(Rating::getRate).average().orElse(0.0);
+        return (double) Math.round(rating * 10.0) / 10.0;
     }
 }
 

@@ -50,25 +50,20 @@ public class MangaService {
         Page<Manga> favoriteList = userRepository.findFavoriteListByUserId(pageable, user.getId());
         List<MangaResponse> mangaResponseList = new ArrayList<>();
         favoriteList.forEach(manga -> {
-            var tmpManga = repository.findById(manga.getId()).orElseThrow();
-
-            if(tmpManga.getId() != null) {
                 var tmpMangaResponse = MangaResponse.builder()
-                        .id(tmpManga.getId())
-                        .title(tmpManga.getTitle())
-                        .authorName(tmpManga.getAuthorName())
-                        .mangaPageId(tmpManga.getMangaPageId())
-                        .pathTitle(tmpManga.getPathTitle())
-                        .typeManga(tmpManga.getTypeManga())
-                        .mangaCover(FileUtils.readFileFromLocation(tmpManga.getMangaCover()))
+                        .id(manga.getId())
+                        .title(manga.getTitle())
+                        .authorName(manga.getAuthorName())
+                        .mangaPageId(manga.getMangaPageId())
+                        .pathTitle(manga.getPathTitle())
+                        .typeManga(manga.getTypeManga())
+                        .mangaCover(FileUtils.readFileFromLocation(manga.getMangaCover()))
                         .achieved(true)
-                        .status(tmpManga.getStatus())
-                        .description(tmpManga.getDescription())
+                        .status(manga.getStatus())
+                        .description(manga.getDescription())
+                        .rating(manga.getAverageRate())
                         .build();
                 mangaResponseList.add(tmpMangaResponse);
-            } else {
-                deleteFromFavoriteByMangaId(manga.getId(), connectedUser);
-            }
         });
 
         return new PageResponse<>(
@@ -109,8 +104,6 @@ public class MangaService {
     }
 
 
-
-
     public MangaResponse findByPageId(String mangaPageId, Authentication connectedUser) {
         var manga = repository.findByMangaPageId(mangaPageId).orElseThrow(() -> new RuntimeException("Manga with this pageId not exist!"));
         if(!manga.isVerified()) {
@@ -136,8 +129,6 @@ public class MangaService {
             }
         }
 
-
-
         return MangaResponse.builder()
                 .id(manga.getId())
                 .mangaCover(FileUtils.readFileFromLocation(manga.getMangaCover()))
@@ -149,6 +140,7 @@ public class MangaService {
                 .authorName(manga.getAuthorName())
                 .mangaPageId(manga.getMangaPageId())
                 .status(manga.getStatus())
+                .rating(manga.getAverageRate())
                 .build();
     }
 
