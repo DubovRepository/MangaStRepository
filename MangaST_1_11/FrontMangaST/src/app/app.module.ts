@@ -21,6 +21,7 @@ import {MangaModule} from "./modules/manga/manga.module";
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,7 @@ import {MangaModule} from "./modules/manga/manga.module";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MangaModule
+    MangaModule,
   ],
   providers: [
     HttpClient,

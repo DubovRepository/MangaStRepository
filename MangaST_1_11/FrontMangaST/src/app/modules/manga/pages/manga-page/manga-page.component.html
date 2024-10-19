@@ -1,6 +1,12 @@
 <div *ngIf="!pageError" class="d-flex justify-content-start mt-3">
   <div class="col-2">
     <img [src]="mangaPageCover" alt="..." height="350" width="300" >
+    <div class="mx-2">
+      <app-rating [rating]="_manga.rating || 0"></app-rating>
+      <span class="fw-bold manga-rate" *ngIf="_manga.rating || 0 > 0">
+        Рейтинг: {{_manga.rating}}
+        </span>
+    </div>
     <div *ngIf="!isAdd">
       <div *ngIf="isAuthorization" class="my-2 mx-2">
         <button *ngIf="!_manga.achieved" type="button" class="btn btn-outline-primary" (click)="addToAchieved()"><i class="fas fa-save"> Добавить в избранное</i></button>
