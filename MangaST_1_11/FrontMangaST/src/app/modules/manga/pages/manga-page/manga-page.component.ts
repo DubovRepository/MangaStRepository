@@ -8,6 +8,8 @@ import {ChapterControllerService} from "../../../../services/services/chapter-co
 import {MangaResponse} from "../../../../services/models/manga-response";
 import {ChapterResponse} from "../../../../services/models/chapter-response";
 import {ChaptersRequest} from "../../../../services/models/chapters-request";
+import {RatingRequest} from "../../../../services/models/rating-request";
+import {RatingControllerService} from "../../../../services/services/rating-controller.service";
 
 
 
@@ -28,13 +30,16 @@ export class MangaPageComponent implements OnInit{
   sectionParam = '';
   isChapters = false;
   _chaptersByManga: Array<ChapterResponse> = [];
+  ratingRequest: RatingRequest = {};
+  appreciateError = '';
 
   constructor(
     private mangaService: MangaControllerService,
     private activatedRoute: ActivatedRoute,
     private chapterService: ChapterControllerService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private ratingService: RatingControllerService,
   ) {
   }
 
@@ -192,4 +197,59 @@ export class MangaPageComponent implements OnInit{
   addChapter() {
     this.router.navigate([`mangaPage/${this.pageId}/add`]);
   }
+
+  toAppreciate() {
+   if(!this.tokenService.token) {
+     this.router.navigate(['login']);
+   }
+
+   const appreciateWindow = document.getElementById('appreciate-container');
+   if(typeof(appreciateWindow) != 'undefined' && appreciateWindow != null) {
+     appreciateWindow.style.display = "block"
+   }
+   const background =  document.getElementById('overall-container');
+    if(typeof(background) != 'undefined' && background != null) {
+      background.style.pointerEvents = "none";
+    }
+  }
+
+  backToMainPage() {
+    const appreciateWindow = document.getElementById('appreciate-container');
+    if(typeof(appreciateWindow) != 'undefined' && appreciateWindow != null) {
+      appreciateWindow.style.display = "none"
+    }
+    const background =  document.getElementById('overall-container');
+    if(typeof(background) != 'undefined' && background != null) {
+      background.style.pointerEvents = "auto";
+    }
+  }
+
+  appreciateManga(rating: number) {
+    this.appreciateError = '';
+    if(rating == null) {
+      throw new Error("Choose a rate!");
+      this.appreciateError = 'Please choose a rating!';
+    } else {
+      this.ratingRequest.mangaId = this._manga.id;
+      this.ratingRequest.userRate = rating;
+      this.ratingService.rateManga({body: this.ratingRequest}).subscribe({
+        next: () => {
+          const appreciateWindow = document.getElementById('appreciate-container');
+          if (typeof (appreciateWindow) != 'undefined' && appreciateWindow != null) {
+            appreciateWindow.style.display = "none"
+          }
+          const background =  document.getElementById('overall-container');
+          if(typeof(background) != 'undefined' && background != null) {
+            background.style.pointerEvents = "auto";
+          }
+          window.location.reload();
+        },
+        error: (err) => {
+          this.appreciateError = err.error.error;
+        }
+      });
+    }
+  }
+
+
 }

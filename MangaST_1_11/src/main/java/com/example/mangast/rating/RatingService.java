@@ -26,7 +26,7 @@ public class RatingService {
     //to User
     @PreAuthorize("hasAnyRole('ADMIN','MODER','USER')")
     public void addRating(Authentication connectedUser, RatingRequest request) {
-        if(request.getUserRate() < 1) {
+        if(request.getUserRate() < 1.0) {
             return;
         }
         User user = ((User) connectedUser.getPrincipal());

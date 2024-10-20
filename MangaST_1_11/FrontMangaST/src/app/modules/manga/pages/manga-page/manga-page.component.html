@@ -1,4 +1,4 @@
-<div *ngIf="!pageError" class="d-flex justify-content-start mt-3">
+<div *ngIf="!pageError" class="d-flex justify-content-start mt-3" id="overall-container">
   <div class="col-2">
     <img [src]="mangaPageCover" alt="..." height="350" width="300" >
     <div class="mx-2">
@@ -8,6 +8,9 @@
         </span>
     </div>
     <div *ngIf="!isAdd">
+      <div class="appreciate my-2 mx-2">
+        <button type="submit" class="btn btn-outline-info" (click)="toAppreciate()">Оценить мангу</button>
+      </div>
       <div *ngIf="isAuthorization" class="my-2 mx-2">
         <button *ngIf="!_manga.achieved" type="button" class="btn btn-outline-primary" (click)="addToAchieved()"><i class="fas fa-save"> Добавить в избранное</i></button>
         <button *ngIf="_manga.achieved" type="button" class="btn btn-outline-danger" (click)="deleteFromAchieved()"><i class="fas fa-times"> Удалить из избранного</i></button>
@@ -15,8 +18,6 @@
       </div>
     </div>
   </div>
-
-
 
 
   <div *ngIf="!isAdd" class="body-manga d-flex col-10">
@@ -27,21 +28,44 @@
           <a class="manga-link" href="/manga/mangaPage/{{this.pageId}}?section=info">Описание</a>
         </li>
         <li class="manga-item mx-lg-4">
-          <!--<a class="manga-link active" href="/manga/mangaPage/{{this.pageId}}?section=chapters">Главы:</a>-->
           <a class="manga-link" href="/manga/mangaPage/{{this.pageId}}?section=chapters">Главы:</a>
         </li>
-
       </ul>
+
       <div *ngIf="!isChapters" class="container-description">
         <p>{{this._manga.description}}</p>
       </div>
-      <div *ngIf="isChapters" class="container-chapters d-flex justify-content-start gap-2 flex-wrap">
+
+      <div *ngIf="isChapters" class="container-chapters gap-2 d-block col-12">
+        <div class="chapters-items">
         <app-chapter-card [chapter]="chapter"
                           *ngFor="let chapter of _chaptersByManga"></app-chapter-card>
+        </div>
       </div>
+
+
+
+      <h3>Комментарии:</h3>
+      <textarea class="comment-write col-11">
+
+      </textarea>
+
+      <br>
+      <br>
+      <div class="comments-container d-block col-12">
+        <div class="comment_items">
+          <app-comment class="mx-1" [comment]="comment"
+                     *ngFor="let comment of _manga.comments"></app-comment>
+        </div>
+      </div>
+
+
       <p *ngIf="pageError.length > 0">{{pageError}}</p>
       <p *ngIf="chaptersError.length > 0">{{chaptersError}}</p>
     </div>
+
+    <br>
+
 
   <!--
   <div class="test-add">
@@ -82,6 +106,26 @@
 <!-- Error, found page -->
 <div *ngIf="pageError">SORRY, BUT NOTHING NOT FOUND! PAGE NOT EXISTS!</div>
 
+
+
+<!-- Окно оценки -->
+<div class="appreciate-container" id="appreciate-container">
+  <h3>Оцените данное произведение</h3>
+  <br>
+  <span *ngIf="appreciateError">{{appreciateError}}</span>
+  <br>
+  <div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-outline-info mx-1 first-star" (click)="appreciateManga(1)"><i class="fas fa-star"></i></button>
+    <button type="submit" class="btn btn-outline-info mx-1 second-star" (click)="appreciateManga(2)"><i class="fas fa-star"></i></button>
+    <button type="submit" class="btn btn-outline-info mx-1 third-star" (click)="appreciateManga(3)"><i class="fas fa-star"></i></button>
+    <button type="submit" class="btn btn-outline-info mx-1 fourth-star" (click)="appreciateManga(4)"><i class="fas fa-star"></i></button>
+    <button type="submit" class="btn btn-outline-info mx-1 fifth-star" (click)="appreciateManga(5)"><i class="fas fa-star"></i></button>
+  </div>
+  <br>
+  <button (click)="backToMainPage()" type="submit" style="font-size: 1.5rem" class="btn btn-link btn text-danger">
+    <i class="fas fa-times"></i> Cancel
+  </button>
+</div>
 
 
 

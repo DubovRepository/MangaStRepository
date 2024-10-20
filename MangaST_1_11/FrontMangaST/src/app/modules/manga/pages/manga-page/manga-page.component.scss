@@ -1,3 +1,6 @@
+.manga_body{
+  max-width: 800px;
+}
 .manga_body a {
   text-decoration: none;
   //background-color: #d6e5f1;
@@ -37,3 +40,49 @@
 app-rating {
   font-size: 2rem;
 }
+
+.container-chapters {
+  max-height: 500px;
+  max-width: 800px;
+  scrollbar-width: auto;
+  margin: auto;
+}
+
+.comments-container {
+  background-color: #9e6b3a;
+  display: block;
+  scrollbar-width: auto;
+  max-height: 400px;
+  max-width: 600px;
+  width: 600px;
+  //width: 400px;
+  //height: 200px;
+
+}
+
+.comment-write {
+  height: 100px;
+}
+
+.appreciate-container {
+  display: none;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 25%;
+  right: 38%;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.appreciate-container button {
+  font-size: 2rem;
+}
+
+
+//.third-star:hover .third-star .first-star .second-star {
+//  background-color: #9e6b3a;
+//}
+
