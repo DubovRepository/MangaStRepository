@@ -44,18 +44,19 @@
       </div>
 
 
+      <div *ngIf="!isChapters">
+        <h3>Комментарии:</h3>
+        <textarea class="comment-write col-11">
 
-      <h3>Комментарии:</h3>
-      <textarea class="comment-write col-11">
+        </textarea>
 
-      </textarea>
-
-      <br>
-      <br>
-      <div class="comments-container d-block col-12">
-        <div class="comment_items">
-          <app-comment class="mx-1" [comment]="comment"
-                     *ngFor="let comment of _manga.comments"></app-comment>
+        <br>
+        <br>
+        <div class="comments-container d-block col-12">
+          <div class="comment_items">
+            <app-comment class="mx-1" [comment]="comment"
+                       *ngFor="let comment of _manga.comments"></app-comment>
+          </div>
         </div>
       </div>
 

@@ -38,14 +38,6 @@ export class ChapterPageComponent implements OnInit{
     this.pageId = this.activatedRoute.snapshot.params['mangaPageId'];
     this.errorMsg = '';
 
-    if(this.activatedRoute.snapshot.params['chapterId']) {
-      this.chapterId = this.activatedRoute.snapshot.params['chapterId'];
-      this.adminService.checkToAdmin(); //Проверка на админа
-      this.isChecked = true;
-
-      //Загрузка главы для проверки администрацией
-      this.loadCheckedChapter();
-    } else {
       if(this.activatedRoute.snapshot.params['chapterNumber']) {
         this.chapterNumber = this.activatedRoute.snapshot.params['chapterNumber'] as number;
         this.isChecked = false;
@@ -55,7 +47,7 @@ export class ChapterPageComponent implements OnInit{
         this.loadChapter();
       }
 
-    }
+
   }
 
 
@@ -105,32 +97,5 @@ export class ChapterPageComponent implements OnInit{
       }
     })
   }
-
-
-
-
-
-  //==============================
-  //CHECKED
-
-
-  loadCheckedChapter() {
-    this.errorMsg = '';
-    this.adminPanelService.findUnverifiedChapterByMangaPageIdAndChapterId({
-      chapterId: this.chapterId as number,
-      mangaPageId: this.pageId as string
-    }).subscribe({
-      next: (chapter) => {
-        this.currentChapter = chapter;
-      },
-      error: (err) => {
-        this.errorMsg = 'This chapter request not found!';
-      }
-    });
-  }
-
-
-
-
 
 }

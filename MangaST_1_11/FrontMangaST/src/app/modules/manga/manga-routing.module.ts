@@ -12,6 +12,7 @@ import {AdminManageComponent} from "./admin/admin-manage/admin-manage.component"
 import {CheckRequestComponent} from "./admin/check-request/check-request.component";
 import {MangaLobbyRequestsComponent} from "./admin/manga-lobby-requests/manga-lobby-requests.component";
 import {ChapterPageComponent} from "./pages/chapter-page/chapter-page.component";
+import {CheckChapterPageComponent} from "./admin/check-chapter-page/check-chapter-page.component";
 
 
 const routes: Routes = [
@@ -94,7 +95,8 @@ const routes: Routes = [
       {
         //Проверка конкретного запроса
         path: 'admin-panel/check-requests/:mangaPageId/:chapterId',
-        component: ChapterPageComponent
+        //component: ChapterPageComponent
+        component: CheckChapterPageComponent
       },
 
     ]

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface MangaChaptersRepository extends JpaRepository<MangaChapters, Integer> {
 
+
     @Query("""
         SELECT chapters.manga FROM MangaChapters chapters
         WHERE chapters.verified = false
@@ -43,6 +44,14 @@ public interface MangaChaptersRepository extends JpaRepository<MangaChapters, In
         ORDER BY chapters.number
     """)
     List<MangaChapters> findAllVerifiedChaptersByManga(Manga manga);
+
+
+    //Возвращает список глав с таким же названием, кроме одной которую только добавили
+    @Query("""
+        SELECT chap FROM MangaChapters chap
+        WHERE chap.manga = :manga AND chap.number = :chapterNumber AND chap.id <> :exceptId
+    """)
+    List<MangaChapters> checkToExistsManyChaptersWithThisNumber(Manga manga, float chapterNumber, Integer exceptId);
 
 
 

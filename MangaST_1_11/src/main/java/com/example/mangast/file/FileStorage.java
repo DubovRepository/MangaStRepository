@@ -43,7 +43,8 @@ public class FileStorage {
     ) {
         final String fileUploadSubPath = "manga" + separator + mangaId
                 + separator + "chapters" + separator + chapterNumber;
-        return uploadFile(sourceFile, fileUploadSubPath);
+        //return uploadFile(sourceFile, fileUploadSubPath);
+        return uploadFileWithoutClearing(sourceFile, fileUploadSubPath);
     }
 
     //Save manga cover
@@ -53,6 +54,20 @@ public class FileStorage {
     ) {
         final String fileUploadSubPath = "manga" + separator + mangaId + separator + "cover";
         return uploadFile(sourceFile, fileUploadSubPath);
+    }
+
+    //Delete pdf file by directory
+    public void deletePdfFile(String filePath) {
+
+        try {
+            Files.deleteIfExists(Path.of(filePath));
+
+            //if() {
+            //   Files.size(Path.of(filePath)) > 0
+            //}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -100,6 +115,34 @@ public class FileStorage {
         }
         return null;
     }
+
+    //Onload picture on server with unclear directory
+    private String uploadFileWithoutClearing(@Nonnull MultipartFile sourceFile,
+                              @Nonnull String fileUploadSubPath) {
+        final String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
+        File targetFolder = new File(finalUploadPath);
+
+        if(!targetFolder.exists()) {
+            boolean folderCreated = targetFolder.mkdirs();
+            if(!folderCreated) {
+                log.warn("Failed to create the target folder: " + targetFolder);
+                return null;
+            }
+        }
+        final String fileExtension = getFileExtension(sourceFile.getOriginalFilename());
+        String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
+        Path targetPath = Paths.get(targetFilePath);
+        try {
+
+            Files.write(targetPath, sourceFile.getBytes());
+            log.info("File saved to: " + targetFilePath);
+            return targetFilePath;
+        } catch (IOException e) {
+            log.error("File was not saved", e);
+        }
+        return null;
+    }
+
 
 
 

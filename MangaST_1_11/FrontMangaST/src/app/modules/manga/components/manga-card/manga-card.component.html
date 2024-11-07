@@ -12,7 +12,7 @@ style="width: 15rem;"> <!--mx-lg-0 расстояние между карточ�
     <p class="card-text">{{manga.description}}</p>
   </div>
   <div class="card-footer d-flex gap-2 justify-content-between align-items-center">
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2" *ngIf="list_manga || adm_manage">
       <app-rating [rating]="manga.rating || 0"></app-rating>
       <span *ngIf="manga.rating || 0 > 0">
         {{manga.rating}}

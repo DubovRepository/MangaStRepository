@@ -1,0 +1,19 @@
+<div>
+  <pdf-viewer class="pdf-checkfile-chap" [src]="selectedFile"
+              [render-text]="true"
+              [original-size]="false"
+              [autoresize]="true"
+              [rotation]="90"
+              [zoom]="0.7"
+              [zoom-scale]="'page-width'"
+
+  ></pdf-viewer>
+
+  <div class="admin-btns d-flex mx-4">
+    <button type="submit" class="btn btn-outline-success mx-2" (click)="acceptRequest()">Approve</button>
+    <button type="submit" class="btn btn-outline-danger" (click)="denyRequest()">Denial</button>
+    <button type="submit" class="btn btn-link btn text-danger" (click)="toBack()">
+      <i class="fas fa-rotate-back"></i> Back
+    </button>
+  </div>
+</div>

@@ -156,6 +156,10 @@ public class AdminService {
         User user = ((User) connectedUser.getPrincipal());
         //Вторая строка под вопросом, можно и без нее обойтись
         var untrustedChapter = chaptersRepository.findById(chapterId).orElseThrow(() -> new RuntimeException("Sorry but chapter cannot be delete, because it not found!"));
+
+        //Удаление содержимого из папки
+        fileStorage.deletePdfFile(untrustedChapter.getContent());
+
         chaptersRepository.deleteById(chapterId);
         log.info("Chapter request id: {} was deleted by admin id: {}!", chapterId ,user.getId());
     }
@@ -167,7 +171,10 @@ public class AdminService {
         chaptersRepository.save(trustedChapter);
         log.info("Chapter request id: {} was successfully approve by admin id: {}!", chapterId, user.getId());
         //Удаление других запросов с таким же number
-        chaptersRepository.deleteDuplicatesUnverifiedChapterNumber(trustedChapter.getNumber(), trustedChapter.getManga());
+        var checkSize = chaptersRepository.checkToExistsManyChaptersWithThisNumber(trustedChapter.getManga(), trustedChapter.getNumber(), trustedChapter.getId()).size();
+        if(checkSize > 0) {
+            chaptersRepository.deleteDuplicatesUnverifiedChapterNumber(trustedChapter.getNumber(), trustedChapter.getManga());
+        }
     }
 
 

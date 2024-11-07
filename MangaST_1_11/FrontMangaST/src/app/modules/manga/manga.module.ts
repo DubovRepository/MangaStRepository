@@ -23,6 +23,7 @@ import { ChapterPageComponent } from './pages/chapter-page/chapter-page.componen
 import { ChapterLoadComponent } from './pages/chapter-load/chapter-load.component';
 import { RatingComponent } from './components/rating/rating.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { CheckChapterPageComponent } from './admin/check-chapter-page/check-chapter-page.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { CommentComponent } from './components/comment/comment.component';
         ChapterLoadComponent,
         RatingComponent,
         CommentComponent,
+        CheckChapterPageComponent,
     ],
     exports: [
         MangaCardComponent
