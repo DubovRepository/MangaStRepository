@@ -10,6 +10,8 @@ import {ChapterResponse} from "../../../../services/models/chapter-response";
 import {ChaptersRequest} from "../../../../services/models/chapters-request";
 import {RatingRequest} from "../../../../services/models/rating-request";
 import {RatingControllerService} from "../../../../services/services/rating-controller.service";
+import {CommentControllerService} from "../../../../services/services/comment-controller.service";
+import {CommentRequest} from "../../../../services/models/comment-request";
 
 
 
@@ -32,6 +34,8 @@ export class MangaPageComponent implements OnInit{
   _chaptersByManga: Array<ChapterResponse> = [];
   ratingRequest: RatingRequest = {};
   appreciateError = '';
+  ourComment = '';
+  commentErrors: Array<string> = [];
 
   constructor(
     private mangaService: MangaControllerService,
@@ -40,13 +44,14 @@ export class MangaPageComponent implements OnInit{
     private tokenService: TokenService,
     private router: Router,
     private ratingService: RatingControllerService,
+    private commentService: CommentControllerService,
   ) {
   }
 
   chapterRequest: ChaptersRequest = {chapterTitle: "", mangaId: undefined, numberChapter: undefined}; //в ChapterRequest добавить undefined
   isAdd = false;
   selectedPdfFile: any;
-  tmpId: number = 0;
+  commentRequest: CommentRequest = {};
 
   get mangaPageCover(): string | undefined {
     if(this._manga.mangaCover) {
@@ -97,6 +102,8 @@ export class MangaPageComponent implements OnInit{
 
   loadMangaPage() {
     this.pageError = '';
+    this.ourComment = '';
+    this.commentErrors = [];
     this.mangaService.findMangaByPageId({
       mangaPageId: this.pageId
     }).subscribe({
@@ -223,6 +230,33 @@ export class MangaPageComponent implements OnInit{
       background.style.pointerEvents = "auto";
     }
   }
+
+  writeComment() {
+    if(!this.tokenService.token) {
+      this.router.navigate(['login']);
+    }
+
+    this.commentRequest.mangaId = this._manga.id;
+    this.commentRequest.content = this.ourComment;
+    this.commentService.addComment({
+      body: this.commentRequest
+    }).subscribe({
+      next: () => {
+        this.errorMsg = '';
+        window.location.reload();
+      },
+      error: (err) => {
+        if(err.error.validationErrors) {
+          this.commentErrors = err.error.validationErrors;
+          throw new Error(err.error.validationErrors);
+        } else {
+          this.commentErrors.push(err.error.error);
+        }
+
+      }
+    })
+  }
+
 
   appreciateManga(rating: number) {
     this.appreciateError = '';

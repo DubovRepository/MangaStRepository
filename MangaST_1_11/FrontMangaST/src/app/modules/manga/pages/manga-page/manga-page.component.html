@@ -44,11 +44,13 @@
       </div>
 
 
-      <div *ngIf="!isChapters">
+      <div *ngIf="!isChapters" class="comments-area d-block">
         <h3>Комментарии:</h3>
-        <textarea class="comment-write col-11">
+        <span style="color: red" *ngIf="commentErrors.length">{{commentErrors}}</span>
+        <textarea class="comment-write col-11" [(ngModel)]="ourComment">
 
         </textarea>
+        <button type="submit" class="btn btn-outline-success comment-btn" (click)="writeComment()"> Оставить комментарий</button>
 
         <br>
         <br>

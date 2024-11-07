@@ -1,5 +1,6 @@
 package com.example.mangast.comments;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,7 @@ public class CommentController {
     private final CommentService service;
 
     //to all
-    /*
+    /* F
     @GetMapping("/getComments/{mangaId}")
     public ResponseEntity<List<CommentResponse>> getAllCommentsByManga(@PathVariable("mangaId") Integer mangaId) {
         return ResponseEntity.ok(service.getComments(mangaId));
@@ -24,7 +25,7 @@ public class CommentController {
     //to user
     @PostMapping("/addComment")
     public ResponseEntity<?> addComment(Authentication connectedUser,
-                                        @RequestBody CommentRequest request) {
+                                        @RequestBody @Valid CommentRequest request) {
         service.addComment(connectedUser, request);
         return ResponseEntity.accepted().build();
     }

@@ -41,6 +41,7 @@ public class CommentService {
     //add comment
     //Добавить request, которой бы проверял длинну сообщения
     @PreAuthorize("hasAnyRole('USER', 'ADMIN','MODER')")
+    //@PreAuthorize("isAuthenticated()")
     public void addComment(Authentication connectedUser, CommentRequest request) {
         User user = ((User) connectedUser.getPrincipal());
         var manga = mangaRepository.findById(request.getMangaId()).orElseThrow(()-> new RuntimeException("Manga with this id not found!"));

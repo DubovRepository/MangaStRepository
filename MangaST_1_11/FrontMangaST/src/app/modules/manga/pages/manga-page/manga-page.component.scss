@@ -40,6 +40,11 @@
 app-rating {
   font-size: 2rem;
 }
+.comment-btn {
+  display: flex;
+  margin: auto;
+}
+
 
 .container-chapters {
   max-height: 500px;
@@ -48,17 +53,17 @@ app-rating {
   margin: auto;
 }
 
-.comments-container {
-  background-color: #9e6b3a;
-  display: block;
-  scrollbar-width: auto;
-  max-height: 400px;
-  max-width: 600px;
-  width: 600px;
-  //width: 400px;
-  //height: 200px;
-
-}
+//.comments-container {
+//  background-color: #9e6b3a;
+//  display: block;
+//  scrollbar-width: auto;
+//  max-height: 400px;
+//  max-width: 600px;
+//  width: 600px;
+//  //width: 400px;
+//  //height: 200px;
+//
+//}
 
 .comment-write {
   height: 100px;
